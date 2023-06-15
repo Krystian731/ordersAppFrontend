@@ -10,6 +10,8 @@ import {LoginComponent} from "./login/components/login-page/login/login.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {GetErrorMessOrder, GetErrorMessPassword, GetErrorMessUser} from "./login/components/login-page/pipes/pipes";
 import {MaterialModule} from "./shared/material/material.module";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthorizationInterceptor} from "./core/auth/authorization.interceptor";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,11 @@ import {MaterialModule} from "./shared/material/material.module";
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthorizationInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

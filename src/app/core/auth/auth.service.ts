@@ -14,4 +14,7 @@ export class AuthService {
     this.cookies.set('username', username);
   }
 
+  getAuthorizationToken(): string {
+    return this.cookies.get('authorizationToken');
+  }
 }
