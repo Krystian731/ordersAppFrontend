@@ -7,6 +7,7 @@ import { DashboardComponent } from './orders/component/orders-dashboard/dashboar
 import { LoginPageComponent } from './login/components/login-page/login-page.component';
 import {RegisterComponent} from "./login/components/login-page/register/register.component";
 import {LoginComponent} from "./login/components/login-page/login/login.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {LoginComponent} from "./login/components/login-page/login/login.componen
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
