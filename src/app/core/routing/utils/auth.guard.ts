@@ -4,7 +4,7 @@ import {
   createUrlTreeFromSnapshot,
   Router
 } from '@angular/router';
-import {AuthService} from "./auth.service";
+import {AuthService} from "../../auth/auth.service";
 
 export const authGuard = (next: ActivatedRouteSnapshot) => {
   const router = inject(Router);
