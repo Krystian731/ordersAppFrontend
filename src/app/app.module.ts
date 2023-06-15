@@ -8,7 +8,7 @@ import { LoginPageComponent } from './login/components/login-page/login-page.com
 import {RegisterComponent} from "./login/components/login-page/register/register.component";
 import {LoginComponent} from "./login/components/login-page/login/login.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {GetErrorMessOrder, GetErrorMessUser} from "./login/components/login-page/pipes/pipes";
+import {GetErrorMessOrder, GetErrorMessPassword, GetErrorMessUser} from "./login/components/login-page/pipes/pipes";
 import {MaterialModule} from "./shared/material/material.module";
 
 @NgModule({
@@ -19,7 +19,8 @@ import {MaterialModule} from "./shared/material/material.module";
     RegisterComponent,
     LoginComponent,
     GetErrorMessUser,
-    GetErrorMessOrder
+    GetErrorMessOrder,
+    GetErrorMessPassword
   ],
   imports: [
     BrowserModule,

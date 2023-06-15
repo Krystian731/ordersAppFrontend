@@ -11,3 +11,9 @@ export const errorsOrder:{[key: string]: string} = {
   minlength: 'Nazwa zamównienia musi zawierać conajmniej 4 znaki',
   maxlength: 'Nazwa zamównienia nie może być dłuższa niż 20 znaków',
 }
+
+export const errorsPassword:{[key: string]: string} = {
+  required: 'Hasło nie może być puste!',
+  minlength: 'Hasło musi zawierać conajmniej 4 znaki',
+  maxlength: 'Hasło nie może być dłuższe niż 20 znaków'
+}

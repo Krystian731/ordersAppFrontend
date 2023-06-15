@@ -1,9 +1,18 @@
 <section class="mx-8 pb-24 flex flex-col items-center justify-center">
   <form [formGroup]="signInForm" class=" mt-6 flex flex-col justify-center items-center">
     <mat-form-field>
-      <input  matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #userData>
+      <input  matInput placeholder="nazwa użytkownika" formControlName="username" #userData>
 
       <mat-error *ngIf="signInForm.invalid">{{signInForm.get('username')?.errors | getErrorMessUser}}</mat-error>
+
+
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="hasło" formControlName="password" #password>
+      <!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
+      <mat-error *ngIf="signInForm.invalid">{{signInForm.get('password')?.errors | getErrorMessPassword}} </mat-error>
 
 
     </mat-form-field>

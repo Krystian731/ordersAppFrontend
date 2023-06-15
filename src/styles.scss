@@ -5,3 +5,10 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --primary-color: #3f51b5;
+  --accent-color: #e91e63;
+  /* ... other color variables */
+}
+

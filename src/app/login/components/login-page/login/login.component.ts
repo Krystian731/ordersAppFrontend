@@ -9,8 +9,11 @@ import { FormControl, FormGroup, Validators} from "@angular/forms";
 export class LoginComponent {
   signInForm: FormGroup = new FormGroup({
     username: new FormControl('', {
-      validators: [Validators.required, Validators.maxLength(20)],
+      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+      //TODO napisac swoj wlasny validator tutaj
       asyncValidators: [],
-      updateOn: 'submit'})
+      updateOn: 'submit'}),
+    password: new FormControl('',
+      {validators: [ Validators.required, Validators.maxLength(20)]})
   });
 }
