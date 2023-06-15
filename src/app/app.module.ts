@@ -8,10 +8,8 @@ import { LoginPageComponent } from './login/components/login-page/login-page.com
 import {RegisterComponent} from "./login/components/login-page/register/register.component";
 import {LoginComponent} from "./login/components/login-page/login/login.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ReactiveFormsModule} from "@angular/forms";
-import {MatInputModule} from "@angular/material/input";
 import {GetErrorMessOrder, GetErrorMessUser} from "./login/components/login-page/pipes/pipes";
-import {MatButtonModule} from "@angular/material/button";
+import {MaterialModule} from "./shared/material/material.module";
 
 @NgModule({
   declarations: [
@@ -27,9 +25,7 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
