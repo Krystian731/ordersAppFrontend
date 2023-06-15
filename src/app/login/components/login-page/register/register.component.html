@@ -1,16 +1,13 @@
-<form>
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-  </div>
+<section class = "mx-8 pb-24 flex flex-col items-center justify-center">
+  <form [formGroup]="signUpForm" class=" mt-6 flex flex-col justify-center items-center" >
+    <mat-form-field>
+      <input matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #username>
+      <!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
+      <mat-error *ngIf="signUpForm.invalid">{{signUpForm.get('username')?.errors | getErrorMessUser}} </mat-error>
 
-  <button type="submit">Register</button>
-</form>
+
+    </mat-form-field>
+    <button class="mt-6" mat-flat-button color="primary" (click)="(username.value)" >zarejestruj</button>
+
+  </form>
+</section>

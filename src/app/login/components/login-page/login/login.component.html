@@ -1,11 +1,16 @@
-<form>
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-  </div>
-  <button type="submit">Login</button>
-</form>
+<section class="mx-8 pb-24 flex flex-col items-center justify-center">
+  <form [formGroup]="signInForm" class=" mt-6 flex flex-col justify-center items-center">
+    <mat-form-field>
+      <input  matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #userData>
+
+      <mat-error *ngIf="signInForm.invalid">{{signInForm.get('username')?.errors | getErrorMessUser}}</mat-error>
+
+
+    </mat-form-field>
+
+    <button mat-flat-button class="mt-6" (click)="(userData.value)" aria-label="start authorization procces" color="primary">
+      zaloguj
+    </button>
+
+  </form>
+</section>

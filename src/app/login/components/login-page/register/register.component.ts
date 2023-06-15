@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-register',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-
+  signUpForm: FormGroup = new FormGroup({
+    username: new FormControl('', {
+      validators:[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20)],
+      asyncValidators: [],
+      updateOn: 'submit' })
+  });
 }
