@@ -1,4 +1,4 @@
 <main class="min-w-fit flex flex-row justify-center items-center h-screen">
-  <app-login></app-login>
+  <app-login (loginEvent)="checkLoginCreditensials($event)"></app-login>
   <app-register></app-register>
 </main>

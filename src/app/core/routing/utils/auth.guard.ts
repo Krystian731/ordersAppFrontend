@@ -9,5 +9,5 @@ import {AuthService} from "../../auth/auth.service";
 export const authGuard = (next: ActivatedRouteSnapshot) => {
   const router = inject(Router);
   console.log('guard');
-  return (inject(AuthService).isUsernameSet() ? true : router.parseUrl('/loginPage'));
+  return (inject(AuthService).isUserIdSet() ? true : router.parseUrl('/loginPage'));
 };

@@ -7,13 +7,20 @@ import {CookieService} from "ngx-cookie-service";
 export class AuthService {
 
   constructor(private cookies: CookieService) { }
-  isUsernameSet(): boolean {
-  return this.cookies.check('username'); // czy tutaj nie powiniem sprawdzic token JWT i czy jest prawidlowy?
+  isUserIdSet(): boolean {
+  return this.cookies.check('userId'); // czy tutaj nie powiniem sprawdzic token JWT i czy jest prawidlowy?
   }
   setUsername(username: string): void {
     this.cookies.set('username', username);
   }
 
+  setUserId(id: number): void  {
+    this.cookies.set('userId',  id.toString());
+  }
+
+  setAuthorizationToken(token: string) {
+    this.cookies.set('authorizationToken', token);
+  }
   getAuthorizationToken(): string {
     return this.cookies.get('authorizationToken');
   }

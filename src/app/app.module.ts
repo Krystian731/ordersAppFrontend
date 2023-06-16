@@ -10,8 +10,9 @@ import {LoginComponent} from "./login/components/login-page/login/login.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {GetErrorMessOrder, GetErrorMessPassword, GetErrorMessUser} from "./login/components/login-page/pipes/pipes";
 import {MaterialModule} from "./shared/material/material.module";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {AuthorizationInterceptor} from "./core/auth/authorization.interceptor";
+import {UserHandlerService} from "./login/services/user-handler.service";
 
 @NgModule({
   declarations: [
@@ -22,15 +23,17 @@ import {AuthorizationInterceptor} from "./core/auth/authorization.interceptor";
     LoginComponent,
     GetErrorMessUser,
     GetErrorMessOrder,
-    GetErrorMessPassword
+    GetErrorMessPassword,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
-  providers: [{
+  providers: [UserHandlerService,
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
     multi: true
