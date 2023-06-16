@@ -3,8 +3,9 @@
     <mat-form-field>
       <input  matInput placeholder="nazwa użytkownika" formControlName="username" #username>
 
-      <mat-error *ngIf="signInForm.invalid">{{signInForm.get('username')?.errors | getErrorMessUser}}</mat-error>
-
+      <mat-error *ngIf="signInForm.invalid">{{signInForm.get('username')?.errors | getErrorMessUser }}</mat-error>
+<!--      blad z tym ze cannot convert to nul bioerze sie wlsansie z tego ze tutaj jak haslo jest zle to username nie ma bledow a ja robie na to pipa
+            czyli powinienmzmienic tego ngifa na bardziej konkrenty -->
 
     </mat-form-field>
 
@@ -12,7 +13,7 @@
     <mat-form-field>
       <input matInput type="password" placeholder="hasło" formControlName="password" #password>
       <!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
-<!--      <mat-error *ngIf="signInForm.invalid">{{signInForm.get('password')?.errors | getErrorMessPassword}} </mat-error>-->
+      <mat-error *ngIf="signInForm.invalid">{{signInForm.get('password')?.errors | getErrorMessPassword }} {{serverErrorMess}}</mat-error>
 <!-- robmy tak ze tutaj podzie caly handlng tego logowania. wyslemy zapytanie do bazy i i zrobimy error na formGroup-->
 <!-- trzeba tylko wsadzic error manualnie do odpowieniego formcontrola z getem -->
     </mat-form-field>

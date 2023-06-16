@@ -12,6 +12,7 @@ export class LoginComponent {
 
   @Output() loginEvent = new EventEmitter<Creditentials>();
 
+   serverErrorMess?: string;
   signInForm: FormGroup = new FormGroup({
     username: new FormControl('', {
       validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
@@ -19,10 +20,14 @@ export class LoginComponent {
       asyncValidators: [],
       updateOn: 'submit'}),
     password: new FormControl('',
-      {validators: [ Validators.required, Validators.maxLength(20)]})
+      {validators: [ Validators.required, Validators.maxLength(20)],
+      asyncValidators: [],
+        updateOn: 'submit'})
   });
 
   loginRequest(username: string, password: string ) {
+    if(this.signInForm.invalid) return;
+
     const credentials: Creditentials = {username, password}
     this.loginEvent.emit(credentials);
   }

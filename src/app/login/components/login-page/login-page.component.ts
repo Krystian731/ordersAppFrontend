@@ -24,13 +24,16 @@ export class LoginPageComponent {
         token === null ? console.error('no auth token !!!') : this.users.login(id, token);
       },
       error: (error) => {
-        //console.log(error.error.message);
-        this.setPasswordError();
+        // no dobra a teraz jakbym chcial zrobic ze przekaze ten error z bazy???
+       console.log(error.error)
+        this.setPasswordError(error.error.status, error.error.message);
       }
   });
-  }
+  }// czyli do tej funkcji wprowadze argument i nie bedzie juz na sztywno. dodatkowo funkcja ustawi proprties w child
 
-  setPasswordError(){
-    this.loginComponent?.signInForm?.get('password')?.setErrors({'incorrect': true});
+  setPasswordError(errorStatus: string, errorMess: string){
+    //this.loginComponent?.signInForm?.get('password')?.setErrors({'invalidData': true});
+    this.loginComponent ? this.loginComponent.signInForm.get('password')?.setErrors({errorStatus: true}) : null ;
+    this.loginComponent ? this.loginComponent.serverErrorMess = errorMess : null ;
   }
 }
