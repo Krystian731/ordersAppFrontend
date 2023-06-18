@@ -2,20 +2,26 @@
   <form [formGroup]="signUpForm" class=" mt-6 flex flex-col justify-center items-center" >
     <mat-form-field>
       <input matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #username>
-      <!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
-<!--      <mat-error *ngIf="signUpForm.invalid">{{signUpForm.get('username')?.errors | getErrorMessUser}} </mat-error>-->
-
+      <mat-error *ngIf="signUpForm.invalid" [ngSwitch]="signUpForm.get('username')?.errors | getFirstKey">
+        <span *ngSwitchCase="'required'">Nazwa użytkownika nie może być puste</span>
+        <span *ngSwitchCase="'minlength'">Nazwa użytkownika musi zawierać conajmniej 3 znaki</span>
+        <span *ngSwitchCase="'maxlength'">Nazwa użytkownika nie może być dłuższe niż 20 znaków</span>
+      </mat-error>
 
     </mat-form-field>
 
     <mat-form-field>
       <input matInput type="password" placeholder="hasło" formControlName="password" #password>
-      <!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
-<!--      <mat-error *ngIf="signUpForm.invalid">{{signUpForm.get('password')?.errors | getErrorMessPassword}} </mat-error>-->
-
+      <mat-error *ngIf="signUpForm.invalid" [ngSwitch]="signUpForm.get('password')?.errors | getFirstKey">
+        <span *ngSwitchCase="'required'">Hasło nie może być puste</span>
+        <span *ngSwitchCase="'minlength'">Hasło musi zawierać conajmniej 3 znaki</span>
+        <span *ngSwitchCase="'maxlength'">Hasło nie może być dłuższe niż 20 znaków</span>
+      </mat-error>
 
     </mat-form-field>
-    <button class="mt-6" mat-flat-button color="primary" (click)="(username.value)" >zarejestruj</button>
+    <button class="mt-6" mat-flat-button color="primary" (click)="registerRequest(username.value, password.value)" >zarejestruj</button>
+    <mat-error *ngIf="serverErrorMess">{{serverErrorMess}}</mat-error>
+
 
   </form>
 </section>

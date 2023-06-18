@@ -15,8 +15,9 @@ export class LoginPageComponent {
   constructor(private users: UserHandlerService) {}
 
   @ViewChild(LoginComponent) loginComponent: LoginComponent | undefined ;
+  @ViewChild(RegisterComponent) registerComponent: RegisterComponent | undefined ;
 
-  checkLoginCreditensials(creditentials: Creditentials) {
+  loginTry(creditentials: Creditentials) {
     this.users.loginRequest(creditentials).subscribe({
       next: (response: HttpResponse<any>) => {
         const id: number = response.body;
@@ -24,16 +25,33 @@ export class LoginPageComponent {
         token === null ? console.error('no auth token !!!') : this.users.login(id, token);
       },
       error: (error) => {
-        // no dobra a teraz jakbym chcial zrobic ze przekaze ten error z bazy???
-       console.log(error.error)
-        this.setPasswordError(error.error.status, error.error.message);
+        this.setLoginError(error.error.status, error.error.message);
       }
   });
-  }// czyli do tej funkcji wprowadze argument i nie bedzie juz na sztywno. dodatkowo funkcja ustawi proprties w child
+  }
 
-  setPasswordError(errorStatus: string, errorMess: string){
+  setLoginError(errorStatus: string, errorMess: string) {
     //this.loginComponent?.signInForm?.get('password')?.setErrors({'invalidData': true});
-    this.loginComponent ? this.loginComponent.signInForm.get('password')?.setErrors({errorStatus: true}) : null ;
-    this.loginComponent ? this.loginComponent.serverErrorMess = errorMess : null ;
+    this.loginComponent ? this.loginComponent.signInForm.get('password')?.setErrors({errorStatus: true}) : null;
+    this.loginComponent ? this.loginComponent.serverErrorMess = errorMess : null;
+  }
+
+  setRegisterError(errorStatus: string, errorMess: string) {
+    //this.loginComponent?.signInForm?.get('password')?.setErrors({'invalidData': true});
+    this.registerComponent ? this.registerComponent.signUpForm.get('password')?.setErrors({errorStatus: true}) : null;
+    this.registerComponent ? this.registerComponent.serverErrorMess = errorMess : null;
+  }
+
+  registerTry(creditentials: Creditentials) {
+    this.users.registerRequest(creditentials).subscribe({
+      next: (response: HttpResponse<any>) => {
+        console.log('succse register');
+        console.log(response);
+        },
+      error: (error) => {
+        this.setRegisterError(error.error.status, error.error.error);
+        console.log(error);
+        }
+    })
   }
 }

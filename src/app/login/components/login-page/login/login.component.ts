@@ -26,6 +26,9 @@ export class LoginComponent {
   });
 
   loginRequest(username: string, password: string ) {
+    // musze jakas wyczaic tatkiego clause zeby moc uruchomic to w templatce. no w sumie to mi zwraca zawsze jedne obiekt wiec
+    // wiec wsm to moge zrobic clasue na obiekt taki i pierdolnosc wtedy
+    //console.log( Object.keys(this.signInForm.get('password').errors));
     if(this.signInForm.invalid) return;
 
     const credentials: Creditentials = {username, password}

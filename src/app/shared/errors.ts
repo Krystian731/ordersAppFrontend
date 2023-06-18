@@ -15,6 +15,5 @@ export const errorsOrder:{[key: string]: string} = {
 export const errorsPassword:{[key: string]: string} = {
   required: 'Hasło nie może być puste!',
   minlength: 'Hasło musi zawierać conajmniej 4 znaki',
-  maxlength: 'Hasło nie może być dłuższe niż 20 znaków',
-  invalidData: 'błędne dane logowania!'
+  maxlength: 'Hasło nie może być dłuższe niż 20 znaków'
 }

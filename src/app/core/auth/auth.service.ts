@@ -21,7 +21,17 @@ export class AuthService {
   setAuthorizationToken(token: string) {
     this.cookies.set('authorizationToken', token);
   }
+
+  deleteAuthorizationToken() {
+    this.cookies.delete('authorizationToken');
+  }
+  deleteUserId() {
+    this.cookies.delete('userId');
+  }
   getAuthorizationToken(): string {
     return this.cookies.get('authorizationToken');
+  }
+  getUserId(): string {
+    return this.cookies.get('userId');
   }
 }

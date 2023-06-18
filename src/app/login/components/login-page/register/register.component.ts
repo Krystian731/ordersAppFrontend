@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Creditentials} from "../models/credentials.model";
 
 @Component({
   selector: 'app-register',
@@ -7,6 +8,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+  @Output() registerEvent = new EventEmitter<Creditentials>();
+
+
+  serverErrorMess?: string;
   signUpForm: FormGroup = new FormGroup({
     username: new FormControl('', {
       validators: [
@@ -23,4 +29,11 @@ export class RegisterComponent {
       asyncValidators: [],
       updateOn: "submit" })
   });
+
+  registerRequest(username: string, password: string) {
+    if(this.signUpForm.invalid) return;
+
+    const credentials: Creditentials = {username, password}
+    this.registerEvent.emit(credentials);
+  }
 }

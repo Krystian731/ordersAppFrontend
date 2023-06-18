@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Creditentials} from "../components/login-page/models/credentials.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {loginPath} from "../../shared/environmentals/env";
+import {loginPath, registerPath} from "../../shared/environmentals/env";
 import {Observable} from "rxjs";
 import {AuthService} from "../../core/auth/auth.service";
 import {Router} from "@angular/router";
@@ -23,5 +23,14 @@ export class UserHandlerService {
     this.auth.setUserId(id);
     this.auth.setAuthorizationToken(authToken);
     this.router.navigateByUrl('/orders').then(r => {} );
+  }
+
+  registerRequest(creditentials: Creditentials) {
+    return this.http.post(registerPath, creditentials, { observe: 'response' }  )
+  }
+
+  logout() {
+    this.auth.deleteUserId();
+    this.auth.deleteAuthorizationToken();
   }
 }
