@@ -9,8 +9,7 @@ import {Creditentials} from "../models/credentials.model";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
-  @Output() loginEvent = new EventEmitter<Creditentials>();
+  @Output() onLogin = new EventEmitter<Creditentials>();
 
    serverErrorMess?: string;
   signInForm: FormGroup = new FormGroup({
@@ -18,20 +17,21 @@ export class LoginComponent {
       validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
       //TODO napisac swoj wlasny validator tutaj
       asyncValidators: [],
-      updateOn: 'submit'}),
-    password: new FormControl('',
-      {validators: [ Validators.required, Validators.maxLength(20)],
+      updateOn: 'blur'}),
+    password: new FormControl('', {
+      validators: [ Validators.required, Validators.maxLength(20)],
       asyncValidators: [],
-        updateOn: 'submit'})
+      updateOn: 'blur'})
   });
 
-  loginRequest(username: string, password: string ) {
+  submitLogin() {
     // musze jakas wyczaic tatkiego clause zeby moc uruchomic to w templatce. no w sumie to mi zwraca zawsze jedne obiekt wiec
     // wiec wsm to moge zrobic clasue na obiekt taki i pierdolnosc wtedy
     //console.log( Object.keys(this.signInForm.get('password').errors));
     if(this.signInForm.invalid) return;
+    console.log('login2');
 
-    const credentials: Creditentials = {username, password}
-    this.loginEvent.emit(credentials);
+    const credentials: Creditentials = this.signInForm.value;
+    this.onLogin.emit(credentials);
   }
 }

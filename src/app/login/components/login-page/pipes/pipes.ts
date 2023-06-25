@@ -30,6 +30,7 @@ export class GetErrorMessPassword implements PipeTransform {
 
 @Pipe({ name: 'getFirstKey' })
 export class GetFirstKey implements PipeTransform {
+
   transform(errorsList: any): string {
     const firstKey = Object.keys(errorsList)[0];
     return firstKey;

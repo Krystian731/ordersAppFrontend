@@ -17,6 +17,10 @@ export class DashboardComponent implements OnInit {
   $orders?: Observable<Order[]>;
 
   display: string = 'day';
+
+  indexTodisplayDetails: number | null = 2;
+
+  toggleValue: any ;
   constructor(private users: UserHandlerService,
               private router: Router,
               private orders: OrdersService,
@@ -34,13 +38,23 @@ export class DashboardComponent implements OnInit {
     if( this.display==='week') return;
     this.$orders = this.orders.ordersForWeekRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
     this.display='week';
+    this.indexTodisplayDetails = null;
 
 
   }
   displayDay() {
     if(this.display==='day') return;
-    this.$orders = this.orders.ordersForWeekRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
+    this.$orders = this.orders.ordersForDayRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
     this.display='day';
+    this.indexTodisplayDetails = null;
+  }
+
+  displayCustom(startDate: string, endDate: string) {
+
+  }
+
+  assignIndex(index: number){
+    this.indexTodisplayDetails === index ? this.indexTodisplayDetails = null : this.indexTodisplayDetails = index;
   }
 
 }

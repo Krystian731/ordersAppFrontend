@@ -1,3 +1,24 @@
-<article class="flex justify-center w-11/12  bg-red-300">
-ph tailwind!!
+<article class="flex flex-col justify-center w-full h-auto bg-amber-200">
+  <section class="flex flex-row flex-wrap items-center justify-center relative">
+
+    <span class="flex flex-col mt-8 md-8 mx-16 ">
+      <span class="text-lg">{{order?.title}}</span>
+      <span class="italic">{{order?.description}}</span>
+    </span>
+
+    <span class="flex flex-col mt-8 md-8 mx-16 absolute top-0 right-0">
+      <span>{{order?.completed | orderCompletionPipe}}</span>
+      <span>{{order?.plannedCompletionDate}}</span>
+    </span>
+
+    <span class="m-auto">{{order?.client}}</span>
+
+  </section><br>
+  <section *ngIf="isToDisplayDetails" class="flex flex-col">
+    <span>{{order?.orderTypeId}}</span>
+    <span>{{order?.quantity}}szt.</span>
+    <span>{{order?.price}}zł</span>
+  </section>
+<!--  jednak zrobie z tego wlasny compoennt bo to jest chujnia z tym.
+ i robie to poprsstu na ngtemplate i tyle tylko animacje musze zrobic-->
 </article>

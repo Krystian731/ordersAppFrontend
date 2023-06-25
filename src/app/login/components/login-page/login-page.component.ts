@@ -18,6 +18,7 @@ export class LoginPageComponent {
   @ViewChild(RegisterComponent) registerComponent: RegisterComponent | undefined ;
 
   loginTry(creditentials: Creditentials) {
+    console.log('w parent po emit event');
     this.users.loginRequest(creditentials).subscribe({
       next: (response: HttpResponse<any>) => {
         const id: number = response.body;

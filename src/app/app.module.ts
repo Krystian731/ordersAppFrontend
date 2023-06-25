@@ -20,6 +20,12 @@ import {AuthorizationInterceptor} from "./core/auth/authorization.interceptor";
 import {UserHandlerService} from "./login/services/user-handler.service";
 import { OrderComponent } from './orders/component/orders-dashboard/order/order.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {OrderCompletionPipe} from "./shared/orderCompletion.pipe";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {MatCardModule} from "@angular/material/card";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -32,7 +38,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     GetErrorMessOrder,
     GetErrorMessPassword,
     GetFirstKey,
-    OrderComponent
+    OrderComponent,
+    OrderCompletionPipe
   ],
   imports: [
     BrowserModule,
@@ -40,14 +47,21 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    FormsModule
   ],
   providers: [UserHandlerService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
     multi: true
-  }],
+  },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

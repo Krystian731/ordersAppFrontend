@@ -21,7 +21,7 @@
 
 <!--    nie no problem jest kurwa prosty. jak daje error np na password to wtedy looogin jest pusty i jest blad. trzeba zrobic gurad claus-->
 
-    <button mat-flat-button class="mt-6" (click)="loginRequest(username.value, password.value)" aria-label="start authorization procces" color="primary">
+    <button mat-flat-button class="mt-6" (click)="submitLogin()" aria-label="submit login" color="primary">
       zaloguj
     </button>
     <mat-error *ngIf="serverErrorMess">{{serverErrorMess}}</mat-error>

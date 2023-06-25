@@ -1,4 +1,4 @@
 <main class="min-w-fit flex flex-row justify-center items-center h-screen">
-  <app-login (loginEvent)="loginTry($event)"></app-login>
+  <app-login (onLogin)="loginTry($event)"></app-login>
   <app-register (registerEvent)="registerTry($event)"></app-register>
 </main>
