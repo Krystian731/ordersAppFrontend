@@ -21,8 +21,22 @@
         <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
 
-  <ng-container *ngFor="let order of $orders | async; let i = index">
-    <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" (click)="assignIndex(i)" class="w-full my-8"></app-order>
-  </ng-container>
+<ng-container *ngIf="$orders then ordersTemplate else arrayOrdersTemplate"></ng-container>
+      <ng-template #ordersTemplate>
+        <ng-container *ngFor="let order of $orders | async; let i = index">
+          <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" (click)="assignIndex(i)" class="w-full my-8"></app-order>
+        </ng-container>
+      </ng-template>
+
+     <ng-template #arrayOrdersTemplate>
+
+
+        <ng-container *ngFor="let day of $ordersArray | async">
+          <ng-container *ngFor="let order of day;  let i = index">
+            <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" (click)="assignIndex(i)" class="w-full my-8"></app-order>
+          </ng-container>
+
+        </ng-container>
+      </ng-template>
     </span>
 </main>

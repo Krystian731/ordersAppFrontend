@@ -6,6 +6,7 @@ import {Order} from "../../models/orderType.model";
 import {Observable} from "rxjs";
 import {DateService} from "../../../shared/services/date.service";
 import {AuthService} from "../../../core/auth/auth.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-orders',
@@ -15,17 +16,22 @@ import {AuthService} from "../../../core/auth/auth.service";
 export class DashboardComponent implements OnInit {
 
   $orders?: Observable<Order[]>;
+  $ordersArray?: Observable<Order[][]>;
 
   display: string = 'day';
 
   indexTodisplayDetails: number | null = 2;
 
   toggleValue: any ;
+
+  dateArray: any;
   constructor(private users: UserHandlerService,
               private router: Router,
               private orders: OrdersService,
               private date: DateService,
-              private auth: AuthService) {}
+              private auth: AuthService,
+
+              ) {}
 
   ngOnInit() { //TODO make date function
     this.$orders = this.orders.ordersForWeekRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
@@ -36,6 +42,7 @@ export class DashboardComponent implements OnInit {
   }
   displayWeek() {
     if( this.display==='week') return;
+    this.$ordersArray = undefined;
     this.$orders = this.orders.ordersForWeekRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
     this.display='week';
     this.indexTodisplayDetails = null;
@@ -44,6 +51,7 @@ export class DashboardComponent implements OnInit {
   }
   displayDay() {
     if(this.display==='day') return;
+    this.$ordersArray = undefined;
     this.$orders = this.orders.ordersForDayRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
     this.display='day';
     this.indexTodisplayDetails = null;
@@ -51,6 +59,11 @@ export class DashboardComponent implements OnInit {
 
   displayCustom(startDate: string, endDate: string) {
 
+    this.display='custom';
+    this.$orders = undefined;
+    this.dateArray = this.date.getDateRange(startDate, endDate);
+
+    this.$ordersArray= this.orders.ordersForCustomRangeRequest(this.auth.getUserId(), this.dateArray);
   }
 
   assignIndex(index: number){
