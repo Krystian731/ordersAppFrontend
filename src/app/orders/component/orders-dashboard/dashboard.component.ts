@@ -50,9 +50,7 @@ export class DashboardComponent implements OnInit {
     this.orders$ = this.orders.ordersForWeekRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
     this.display='week';
     this.indexTodisplayDetails = null;
-    // this.orderTypes = this.orders.orderTypesRequest(this.auth.getUserId());
-    console.log('orderTypes:' + this.orderTypes$);
-
+    this.orderTypes$ = this.orders.orderTypesRequest(this.auth.getUserId());
   }
   displayDay() {
     if(this.display==='day') return;
@@ -60,26 +58,23 @@ export class DashboardComponent implements OnInit {
     this.orders$ = this.orders.ordersForDayRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
     this.display='day';
     this.indexTodisplayDetails = null;
-    console.log();
-    // this.orderTypes= this.orders.orderTypesRequest(this.auth.getUserId());
+    this.orderTypes$ = this.orders.orderTypesRequest(this.auth.getUserId());
 
-    // moge jeszceze wykonsologowac typeof
   }
 
   displayCustom(startDate: string, endDate: string) {
-
-    this.display='custom';
-    this.orders$ = undefined;
     this.dateArray = this.date.getDateRange(startDate, endDate);
-
     this.$ordersArray= this.orders.ordersForCustomRangeRequest(this.auth.getUserId(), this.dateArray);
-    // this.orderTypes= this.orders.orderTypesRequest(this.auth.getUserId());
-
-    console.log('orderTypes:' + this.orderTypes$);
+    this.orderTypes$ = this.orders.orderTypesRequest(this.auth.getUserId());
   }
 
   assignIndex(index: number){
     this.indexTodisplayDetails === index ? this.indexTodisplayDetails = null : this.indexTodisplayDetails = index;
+  }
+
+  resetOrders() {
+    this.display = 'custom';
+    this.orders$ = undefined;
   }
 
 }

@@ -7,7 +7,7 @@
       <mat-button-toggle-group name="schedule" aria-label="schedule" [(ngModel)]="toggleValue">
         <mat-button-toggle [checked]="true" style="width: 150px" value="day" (click)="displayDay()" disableRipple>dziś</mat-button-toggle>
         <mat-button-toggle style="width: 150px" value="week" (click)="displayWeek()" disableRipple>ten tydzień</mat-button-toggle>
-        <mat-button-toggle style="width: 150px" value="custom" disableRipple>wybierz zakres</mat-button-toggle>
+        <mat-button-toggle style="width: 150px" value="custom" (click)="resetOrders()" disableRipple>wybierz zakres</mat-button-toggle>
       </mat-button-toggle-group>
     </span>
 
