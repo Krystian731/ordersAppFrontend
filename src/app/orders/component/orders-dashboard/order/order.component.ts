@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Order} from "../../../models/orderType.model";
+import {Order} from "../../../models/order";
 
 @Component({
   selector: 'app-order',
@@ -9,12 +9,10 @@ import {Order} from "../../../models/orderType.model";
 export class OrderComponent implements OnInit {
   @Input() order?: Order;
   @Input()  isToDisplayDetails?: boolean = false;
+  @Input()  orderTypeName?: string;
 
-  //TODO simplyfy this
-
-  ngOnInit(){
-    console.log(this.order);
-    if(this.isToDisplayDetails)console.log('dzialalaa');
+  ngOnInit() {
+    console.log('w oder: ' + this.orderTypeName);
   }
 
 

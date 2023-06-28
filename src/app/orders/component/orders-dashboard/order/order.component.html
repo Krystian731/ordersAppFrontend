@@ -1,3 +1,4 @@
+
 <article class="flex flex-col justify-center w-full h-auto bg-amber-200">
   <section class="flex flex-row flex-wrap items-center justify-center relative">
 
@@ -15,7 +16,7 @@
 
   </section><br>
   <section *ngIf="isToDisplayDetails" class="flex flex-col">
-    <span>{{order?.orderTypeId}}</span>
+    <span>{{this.orderTypeName}}</span>
     <span>{{order?.quantity}}szt.</span>
     <span>{{order?.price}}zł</span>
   </section>

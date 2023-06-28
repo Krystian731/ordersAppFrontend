@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ordersForDayPath, ordersForWeekPath} from "../../shared/environmentals/env";
+import {ordersForDayPath, ordersForWeekPath, orderTypesPath} from "../../shared/environmentals/env";
 import {forkJoin, map, mergeMap, Observable, toArray} from "rxjs";
-import {Order} from "../models/orderType.model";
+import {Order} from "../models/order";
 import * as moment from 'moment';
+import {OrderType} from "../models/orderType";
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,7 @@ export class OrdersService {
     }
     return forkJoin(requests);
   }
-
-  // to powinno funkcjonowac w ten sposob ze czeka az wsyztskie requesty i laczy to w jeden.
-  // no tak tylko laczy te wszytskie requesty ktore zwaraacja observale<order[]> i teraz jest tablice tego typu.
-
+  orderTypesRequest(userId: string): Observable<OrderType[]> {
+    return this.http.get<OrderType[]>(orderTypesPath + userId);
+  }
 }

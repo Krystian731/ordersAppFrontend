@@ -1,4 +1,5 @@
 <main class="w-screen h-screen bg-blue-300">
+  <h1 *ngIf="orderTypes$ | async as types">orderTypes: {{types[1].name}}</h1>
   <button mat-button color="warn" (click)="logout()">wyloguj</button>
 
   <span class="flex flex-col items-center justify-center w-4/5">
@@ -21,21 +22,22 @@
         <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
 
-<ng-container *ngIf="$orders then ordersTemplate else arrayOrdersTemplate"></ng-container>
-      <ng-template #ordersTemplate>
-        <ng-container *ngFor="let order of $orders | async; let i = index">
-          <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" (click)="assignIndex(i)" class="w-full my-8"></app-order>
+<ng-container *ngIf="orders$ then ordersTemplate else arrayOrdersTemplate"></ng-container>
+      <ng-template #ordersTemplate >
+        <ng-container *ngFor="let order of orders$ | async; let i = index; ">
+          <ng-container *ngIf="orderTypes$ | async as types">
+            <app-order [orderTypeName]="types[order.orderTypeId-1].name" [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" (click)="assignIndex(i)" class="w-full my-8"></app-order>
+          </ng-container>
         </ng-container>
       </ng-template>
 
      <ng-template #arrayOrdersTemplate>
-
-
-        <ng-container *ngFor="let day of $ordersArray | async">
-          <ng-container *ngFor="let order of day;  let i = index">
-            <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" (click)="assignIndex(i)" class="w-full my-8"></app-order>
+        <ng-container *ngFor="let day of $ordersArray | async" >
+          <ng-container *ngIf="orderTypes$ | async as types">
+            <ng-container *ngFor="let order of day;  let i = index">
+              <app-order [orderTypeName]="types[order.orderTypeId-1].name" [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" (click)="assignIndex(i)" class="w-full my-8"></app-order>
+            </ng-container>
           </ng-container>
-
         </ng-container>
       </ng-template>
     </span>
