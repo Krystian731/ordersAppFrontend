@@ -7,7 +7,7 @@ import {Order} from "../../../models/order";
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-  @Input() order?: Order;
+  @Input() order?: any; //TODO tutaj zmienic ten typ
   @Input()  isToDisplayDetails?: boolean = false;
   @Input()  orderTypeName?: string;
 

@@ -16,7 +16,7 @@
 
   </section><br>
   <section *ngIf="isToDisplayDetails" class="flex flex-col">
-    <span>{{this.orderTypeName}}</span>
+    <span>{{order?.name}}</span>
     <span>{{order?.quantity}}szt.</span>
     <span>{{order?.price}}zł</span>
   </section>

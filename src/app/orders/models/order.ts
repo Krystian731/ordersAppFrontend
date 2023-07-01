@@ -1,5 +1,4 @@
-export interface Order
-{
+export interface Order {
   completed: boolean,
   description: string,
   plannedCompletionDate: string,
@@ -10,6 +9,5 @@ export interface Order
   price: number,
   client: string,
   orderId: number
-
+  name?: string;
 }
-
