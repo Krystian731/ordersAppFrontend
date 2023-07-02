@@ -18,8 +18,16 @@ getCurrentTimestamp() {
       if(startDate === '' || endDate === '')
         return [];
 
+
       const startDateFormat = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
       const endDateFormat = moment(endDate, 'DD/MM/YYYY').add(1,'d').format('YYYY-MM-DD');
+
+      if(moment(startDateFormat,'YYYY-MM-DD').isAfter(moment(endDateFormat,'YYYY-MM-DD'))){
+        console.log('guard w daterane!!');
+        return [];
+      }
+
+
       let dateVarFormat= startDateFormat;
       let dateArrayFormat: string[] = [];
 

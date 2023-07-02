@@ -31,7 +31,7 @@ export class OrdersService {
     }
     return forkJoin(requests)
       .pipe(
-      map(arr => arr.reduce((acc: Order[], val: Order[]) => acc.concat(val), []))
+      map(arr => arr.reduce((acc, val) => acc.concat(val), []))
     );
     //tutaj pipe z reduce
   }

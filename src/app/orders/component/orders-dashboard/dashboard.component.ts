@@ -3,7 +3,7 @@ import {UserHandlerService} from "../../../login/services/user-handler.service";
 import {Router} from "@angular/router";
 import {OrdersService} from "../../services/orders.service";
 import {Order} from "../../models/order";
-import {finalize, map, Observable} from "rxjs";
+import {finalize, from, map, Observable, of} from "rxjs";
 import {DateService} from "../../../shared/services/date.service";
 import {AuthService} from "../../../core/auth/auth.service";
 import * as moment from 'moment';
@@ -49,6 +49,8 @@ export class DashboardComponent implements OnInit {
         return finalArray;
       })
     );
+
+
   }
   logout() {
     this.users.logout();
@@ -88,14 +90,12 @@ export class DashboardComponent implements OnInit {
     this.indexTodisplayDetails = null;
   }
 
-  // displayDayNew(): void {
-  //   this.orders$ = this.orders.ordersForDayRequest(this.auth.getUserId(), this.date.getCurrentTimestamp());
-  //   this.display='day';
-  //   this.indexTodisplayDetails = null;
-  // }
-
-
   displayCustom(startDate: string, endDate: string) {
+    //TODO write guard cluse preventing startdate> endtae and start date || enddate null
+    if(startDate == null || endDate == null) {
+      console.log('guardclose daterange');
+      return;
+    }
     this.dateArray = this.date.getDateRange(startDate, endDate);
     this.orders$ = this.orders.ordersForCustomRangeRequest(this.auth.getUserId(), this.dateArray).pipe(
       map(order =>
