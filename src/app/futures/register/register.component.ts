@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Creditentials} from "../models/credentials.model";
+import {Creditentials} from "../../core/models/credentials.model";
 
 @Component({
   selector: 'app-register',

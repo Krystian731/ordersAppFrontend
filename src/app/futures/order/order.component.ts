@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Order} from "../../../models/order";
+import {Order} from "../../core/models/order";
 
 @Component({
   selector: 'app-order',
@@ -7,15 +7,11 @@ import {Order} from "../../../models/order";
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-  @Input() order?: any; //TODO tutaj zmienic ten typ
+  @Input() order?: Order;
   @Input()  isToDisplayDetails?: boolean = false;
   @Input()  orderTypeName?: string;
 
   ngOnInit() {
     console.log('w oder: ' + this.orderTypeName);
   }
-
-
-  //TODO no dobra to teraz stylujemy to wszytsko elegancko.
-  // trzeba zaimkludowac tez napewno tego dropa
 }

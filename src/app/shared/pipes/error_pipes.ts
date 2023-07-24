@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { errorsOrder, errorsUser, errorsPassword } from '../../../../shared/errors'
+import { errorsOrder, errorsUser, errorsPassword } from '../errors/errors_message'
 
 @Pipe({ name: 'getErrorMessUser' })
 export class GetErrorMessUser implements PipeTransform {

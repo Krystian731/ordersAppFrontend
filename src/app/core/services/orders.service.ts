@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ordersForDayPath, ordersForWeekPath, orderTypesPath} from "../../shared/environmentals/env";
-import {forkJoin, map, mergeMap, Observable, toArray} from "rxjs";
+import {ordersForDayPath, ordersForWeekPath, orderTypesPath} from "../../shared/environmentals/paths";
+import {forkJoin, map, Observable} from "rxjs";
 import {Order} from "../models/order";
-import * as moment from 'moment';
 import {OrderType} from "../models/orderType";
 
 @Injectable({

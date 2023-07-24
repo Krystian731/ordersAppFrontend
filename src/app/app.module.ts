@@ -1,26 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './core/routing/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './orders/component/orders-dashboard/dashboard.component';
-import { LoginPageComponent } from './login/components/login-page/login-page.component';
-import {RegisterComponent} from "./login/components/login-page/register/register.component";
-import {LoginComponent} from "./login/components/login-page/login/login.component";
+import { DashboardComponent } from './futures/dashboard/dashboard.component';
+import { LoginPageComponent } from './futures/login-page/login-page.component';
+import { RegisterComponent} from "./futures/register/register.component";
+import { LoginComponent} from "./futures/login/login.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   GetErrorMessOrder,
   GetErrorMessPassword,
   GetErrorMessUser,
   GetFirstKey
-} from "./login/components/login-page/pipes/pipes";
-import {MaterialModule} from "./shared/material/material.module";
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {AuthorizationInterceptor} from "./core/auth/authorization.interceptor";
-import {UserHandlerService} from "./login/services/user-handler.service";
-import { OrderComponent } from './orders/component/orders-dashboard/order/order.component';
+} from "./shared/pipes/error_pipes";
+import {MaterialModule} from "./shared/angular_materials/material.module";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthorizationInterceptor} from "./shared/utils/authorization.interceptor";
+import {UserHandlerService} from "./core/services/user-handler.service";
+import { OrderComponent } from './futures/order/order.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {OrderCompletionPipe} from "./shared/orderCompletion.pipe";
+import {OrderCompletionPipe} from "./shared/pipes/orderCompletion.pipe";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";

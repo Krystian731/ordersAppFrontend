@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {DashboardComponent} from "../../orders/component/orders-dashboard/dashboard.component";
-import {LoginPageComponent} from "../../login/components/login-page/login-page.component";
-import {authGuard} from "./utils/auth.guard";
+import {NgModule } from '@angular/core';
+import {RouterModule, Routes } from '@angular/router';
+import {DashboardComponent} from "./futures/dashboard/dashboard.component";
+import {LoginPageComponent} from "./futures/login-page/login-page.component";
+import {authGuard} from "./shared/utils/auth.guard";
 
 const routes: Routes = [
   { path: 'orders', component: DashboardComponent, canActivate: [authGuard] },

@@ -1,10 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import { LoginComponent} from "./login/login.component";
-import { RegisterComponent} from "./register/register.component";
-import {Creditentials} from "./models/credentials.model";
-import {UserHandlerService} from "../../services/user-handler.service";
-import {HttpHeaders, HttpResponse} from "@angular/common/http";
-import {authGuard} from "../../../core/routing/utils/auth.guard";
+import { LoginComponent} from "../login/login.component";
+import { RegisterComponent} from "../register/register.component";
+import {Creditentials} from "../../core/models/credentials.model";
+import {UserHandlerService} from "../../core/services/user-handler.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login-page',
@@ -46,7 +45,7 @@ export class LoginPageComponent {
   registerTry(creditentials: Creditentials) {
     this.users.registerRequest(creditentials).subscribe({
       next: (response: HttpResponse<any>) => {
-        console.log('succse register');
+        console.log('succesfull register');
         console.log(response);
         },
       error: (error) => {

@@ -1,11 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/app/app.component.html",
-  "./src/app/login/components/login-page/login-page.component.html",
-  "./src/app/login/components/login-page/login/login.component.html",
-  "./src/app/login/components/login-page/register/register.component.html",
-  "./src/app/orders/component/orders-dashboard/dashboard.component.html",
-   "./src/app/orders/component/orders-dashboard/order/order.component.html"],
+  content: [
+    "./src/app/app.component.html",
+    "./src/app/futures/register/register.component.html",
+    "./src/app/futures/order/order.component.html",
+    "./src/app/futures/login-page/login-page.component.html",
+    "./src/app/futures/login/login.component.html",
+    "./src/app/futures/dashboard/dashboard.component.html"
+  ],
   theme: {
     extend: {},
   },

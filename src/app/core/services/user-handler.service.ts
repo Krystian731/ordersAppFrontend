@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Creditentials} from "../components/login-page/models/credentials.model";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {loginPath, registerPath} from "../../shared/environmentals/env";
-import {Observable} from "rxjs";
-import {AuthService} from "../../core/auth/auth.service";
+import {Creditentials} from "../models/credentials.model";
+import {HttpClient} from "@angular/common/http";
+import {loginPath, registerPath} from "../../shared/environmentals/paths";
+import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 
 @Injectable({

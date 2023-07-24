@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {UserHandlerService} from "../../../login/services/user-handler.service";
+import {UserHandlerService} from "../../core/services/user-handler.service";
 import {Router} from "@angular/router";
-import {OrdersService} from "../../services/orders.service";
-import {Order} from "../../models/order";
-import {finalize, from, map, Observable, of} from "rxjs";
-import {DateService} from "../../../shared/services/date.service";
-import {AuthService} from "../../../core/auth/auth.service";
-import * as moment from 'moment';
-import {OrderType} from "../../models/orderType";
+import {OrdersService} from "../../core/services/orders.service";
+import {Order} from "../../core/models/order";
+import {map, Observable} from "rxjs";
+import {DateService} from "../../shared/services/date.service";
+import {AuthService} from "../../core/services/auth.service";
+import {OrderType} from "../../core/models/orderType";
 
 @Component({
   selector: 'app-orders',
@@ -17,9 +16,6 @@ import {OrderType} from "../../models/orderType";
 export class DashboardComponent implements OnInit {
 
   orders$?: Observable<Order[]>; //TODO tutaj jest blad ze tutaj jest inny typ wlasnie
-  // $ordersArray?: Observable<Order[][]>;
-
-  // $orderTypes?: Observable<OrderType[]>;
   orderTypes: OrderType[]=[];
   display: string = 'day';
 
