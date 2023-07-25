@@ -14,8 +14,7 @@ export class LoginComponent {
    serverErrorMess?: string;
   signInForm: FormGroup = new FormGroup({
     username: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
-      //TODO napisac swoj wlasny validator tutaj
+      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
       asyncValidators: [],
       updateOn: 'blur'}),
     password: new FormControl('', {
@@ -25,9 +24,6 @@ export class LoginComponent {
   });
 
   submitLogin() {
-    // musze jakas wyczaic tatkiego clause zeby moc uruchomic to w templatce. no w sumie to mi zwraca zawsze jedne obiekt wiec
-    // wiec wsm to moge zrobic clasue na obiekt taki i pierdolnosc wtedy
-    //console.log( Object.keys(this.signInForm.get('password').errors));
     if(this.signInForm.invalid) return;
     console.log('login2');
 

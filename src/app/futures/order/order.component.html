@@ -13,13 +13,16 @@
     </span>
 
     <span class="m-auto">{{order?.client}}</span>
-
+    <div class="dropdown-button absolute top-1/2 right-1/4   w-10 h-10 flex justify-center items-center" (click)="emitDropdownEvent()"><div>V</div></div>
   </section><br>
   <section *ngIf="isToDisplayDetails" class="flex flex-col">
     <span>{{order?.name}}</span>
     <span>{{order?.quantity}}szt.</span>
     <span>{{order?.price}}zł</span>
+    <span class="flex flex-row justify-center gap-x-3 button-area">
+      <button mat-flat-button color="primary" (click)="edit()">edytuj</button>
+      <button mat-flat-button class="action-button" (click)="delete()">usuń</button>
+    </span>
   </section>
-<!--  jednak zrobie z tego wlasny compoennt bo to jest chujnia z tym.
- i robie to poprsstu na ngtemplate i tyle tylko animacje musze zrobic-->
+
 </article>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Order} from "../../core/models/order";
 
 @Component({
@@ -10,8 +10,19 @@ export class OrderComponent implements OnInit {
   @Input() order?: Order;
   @Input()  isToDisplayDetails?: boolean = false;
   @Input()  orderTypeName?: string;
+  @Input() index?: number;
+  @Output() dropdownEvent = new EventEmitter<number>();
 
   ngOnInit() {
     console.log('w oder: ' + this.orderTypeName);
+  }
+  delete() {
+
+  }
+  edit() {
+
+  }
+  emitDropdownEvent() {
+    this.dropdownEvent.emit(this.index);
   }
 }
