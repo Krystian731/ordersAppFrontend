@@ -25,6 +25,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import {MatCardModule} from "@angular/material/card";
 import {FormsModule} from "@angular/forms";
+import { EditOrderDialogComponent } from './futures/edit-order-dialog/edit-order-dialog.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -38,21 +40,23 @@ import {FormsModule} from "@angular/forms";
     GetErrorMessPassword,
     GetFirstKey,
     OrderComponent,
-    OrderCompletionPipe
+    OrderCompletionPipe,
+    EditOrderDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    HttpClientModule,
-    MatButtonToggleModule,
-    MatExpansionModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCardModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        HttpClientModule,
+        MatButtonToggleModule,
+        MatExpansionModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule,
+        FormsModule,
+        MatCheckboxModule
+    ],
   providers: [UserHandlerService,
     {
     provide: HTTP_INTERCEPTORS,

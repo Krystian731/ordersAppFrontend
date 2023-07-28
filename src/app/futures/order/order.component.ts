@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Order} from "../../core/models/order";
+import {MatDialog} from "@angular/material/dialog";
+import {EditOrderDialogComponent} from "../edit-order-dialog/edit-order-dialog.component";
 
 @Component({
   selector: 'app-order',
@@ -12,15 +14,20 @@ export class OrderComponent implements OnInit {
   @Input()  orderTypeName?: string;
   @Input() index?: number;
   @Output() dropdownEvent = new EventEmitter<number>();
+  @Output() editEvent = new EventEmitter<{order: Order, index: number}>();
 
+
+  constructor(public dialog: MatDialog) {}
   ngOnInit() {
     console.log('w oder: ' + this.orderTypeName);
   }
   delete() {
 
   }
-  edit() {
-
+  emitEditEvent() {
+    if(this.order === undefined || this.index === undefined)
+      return;
+   this.editEvent.emit({order: this.order, index: this.index});
   }
   emitDropdownEvent() {
     this.dropdownEvent.emit(this.index);

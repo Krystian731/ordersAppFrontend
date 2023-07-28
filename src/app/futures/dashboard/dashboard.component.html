@@ -22,7 +22,7 @@
     </mat-form-field>
 
         <ng-container *ngFor="let order of orders$ | async; let i = index; ">
-            <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" class="w-full my-8"></app-order>
+            <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" (editEvent)="openEditDialog($event.order, $event.index)" class="w-full my-8"></app-order>
         </ng-container>
 
     </span>

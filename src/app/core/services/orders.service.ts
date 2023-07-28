@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ordersForDayPath, ordersForWeekPath, orderTypesPath} from "../../shared/environmentals/paths";
+import {ordersForDayPath, ordersForWeekPath, ordersPath, orderTypesPath} from "../../shared/environmentals/paths";
 import {forkJoin, map, Observable} from "rxjs";
 import {Order} from "../models/order";
 import {OrderType} from "../models/orderType";
@@ -46,5 +46,10 @@ export class OrdersService {
 
   getOrderTypes(userId: string): Observable<OrderType[]> {
     return this.http.get<OrderType[]>(orderTypesPath + userId);
+  }
+
+  updateOrder(updatedOrder: Order) {
+    console.log(`wartość updatedOrder w serwisie przed wsyłaniem: ${updatedOrder.plannedCompletionDate}`)
+    return this.http.patch(ordersPath + updatedOrder.orderId, updatedOrder);
   }
 }

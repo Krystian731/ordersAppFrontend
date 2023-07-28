@@ -12,7 +12,7 @@ getCurrentTimestamp() {
   return timestamp;
 }
 
-  getDateRange(startDate: string, endDate: string): string[] {
+  getDateRange(startDate: string, endDate: string): string[] { //TODO refactor it to use convert fucntions
       if(startDate === '' || endDate === '')
         return [];
 
@@ -36,7 +36,9 @@ getCurrentTimestamp() {
       console.log(`dateArrayFormated: ${dateArrayFormat}`);
       return dateArrayFormat;
     }
-
+   convertControlerDataToJSONFormat(controlerData: string): string {
+    return moment(controlerData, 'ddd MMM DD YYYY HH:mm:ss ZZ').format('YYYY-MM-DDTHH:mm:00');
+   }
 
   constructor() { }
 }
