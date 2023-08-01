@@ -37,7 +37,7 @@ getCurrentTimestamp() {
       return dateArrayFormat;
     }
    convertControlerDataToJSONFormat(controlerData: string): string {
-    return moment(controlerData, 'ddd MMM DD YYYY HH:mm:ss ZZ').format('YYYY-MM-DDTHH:mm:00');
+    return moment(controlerData, 'YYYY-MM-DD').format('YYYY-MM-DDT00:00:00');
    }
 
   constructor() { }

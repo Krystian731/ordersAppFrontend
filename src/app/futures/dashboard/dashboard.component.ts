@@ -20,12 +20,13 @@ export class DashboardComponent implements OnInit {
   orders$?: Observable<Order[]>;
   orderTypes: OrderType[]=[];
   display: string = 'day'; //TODO make this type and use predefined aliases, and also change the whole system to use bahaviorsubject, later in angular 17 use signals with effect
+  last_displayed: string = '';
+  dateArray: string[] = [];
 
   indexTodisplayDetails: number | null = 2 ; //TODO make it prettier
 
   toggleValue: any ; //TODO delte this any!
 
-  dateArray: any;
   constructor(private users: UserHandlerService,
               private router: Router,
               private orders: OrdersService,
@@ -56,8 +57,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/loginPage');
   }
   displayWeek() {
-    if( this.display==='week') return;
-    console.log('przypisanie:');
     this.orders$ = this.orders.ordersForWeekRequest(this.auth.getUserId(), this.date.getCurrentTimestamp()).pipe(
       map(order =>
       {
@@ -69,11 +68,9 @@ export class DashboardComponent implements OnInit {
           return finalArray;
       })
     );
-    this.display='week';
     this.indexTodisplayDetails = null;
   }
   displayDay() {
-    if(this.display==='day') return;
     this.orders$ = this.orders.ordersForDayRequest(this.auth.getUserId(), this.date.getCurrentTimestamp()).pipe(
       map(order =>
       {
@@ -85,17 +82,11 @@ export class DashboardComponent implements OnInit {
         return finalArray;
       })
     );
-    this.display='day';
     this.indexTodisplayDetails = null;
   }
 
-  displayCustom(startDate: string, endDate: string) {
-    if(startDate == null || endDate == null) {
-      console.log('guardclose daterange');
-      return;
-    }
-    this.dateArray = this.date.getDateRange(startDate, endDate);
-    this.orders$ = this.orders.ordersForCustomRangeRequest(this.auth.getUserId(), this.dateArray).pipe(
+  displayCustom(dateArray: string[]) {
+    this.orders$ = this.orders.ordersForCustomRangeRequest(this.auth.getUserId(), dateArray).pipe(
       map(order =>
       {
         let finalArray: Order[] = [];//TODO make rxjs reduce here
@@ -134,14 +125,60 @@ export class DashboardComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result) => {
         if(result !== false) {
           this.orders.updateOrder(result).subscribe( (res) => {
-            console.log(res);
+            this.refreshOrders();
           });
-          // dobra i to musze subskrybowac
-          console.log('poslzo');
         }
 
       });
     })
 
+  }
+  toogleDisplayState(option: string, date: {start: string, end: string} = {start: "", end: ""}) { //TODO refactor this to work as a subject in serwise i na oninti ustawiam tutaj subscyrbcje
+    console.log('funcka');
+    if (this.display === option && option != 'custom') {
+      console.log('funcka end');
+      return;
+    }
+
+    switch (option) {
+      case 'day': {
+        this.display = 'day';
+        this.displayDay();
+        break;
+      }
+      case 'week': {
+        this.display = 'week';
+        this.displayWeek();
+        break;
+      }
+      case 'custom': {
+        if (date.start == "" || date.end == "") {
+          break;
+        }
+        this.display = 'custom';
+        this.dateArray = this.date.getDateRange(date.start, date.end);
+        this.displayCustom(this.dateArray);
+        break;
+      }
+      case 'refresh': {
+        switch (this.display) {
+          case 'day': {
+            this.displayDay();
+            break;
+          }
+          case 'week': {
+            this.displayWeek();
+            break;
+          }
+          case 'custom': {
+            this.displayCustom(this.dateArray);
+            break;
+          }
+        }
+      }
+    }
+  }
+  refreshOrders() {
+    this.toogleDisplayState('refresh');
   }
 }

@@ -29,16 +29,14 @@ export class EditOrderDialogComponent implements OnInit {
   });
 }
 
-  submitDialog() {
+  submitDialog() { //TODO bind this
     this.newOrder.title = this.orderForm?.get('title')?.value;
     this.newOrder.description = this.orderForm?.get('description')?.value;
     this.newOrder.price = this.orderForm?.get('price')?.value;
     this.newOrder.client = this.orderForm?.get('client')?.value;
     this.newOrder.quantity = this.orderForm?.get('quantity')?.value;
     this.newOrder.plannedCompletionDate = this.dateService.convertControlerDataToJSONFormat(this.orderForm?.get('plannedCompletionDate')?.value);
-    //console.log(`wartość w formControl ( this.orderForm?.get('plannedCompletionDate')?.value) input-u: ${this.orderForm?.get('plannedCompletionDate')?.value}`);
-    //console.log(`wartość this.newOrder.plannedCompletionDate: ${this.newOrder.plannedCompletionDate}`);
-    //console.log(`wartość this.newOrder.plannedCompletionDate po konwersji mojej przez funkcje z serwisu: ${ this.dateService.convertControlerDataToJSONFormat(this.newOrder.plannedCompletionDate)}`);
+
     this.newOrder.completed = this.orderForm?.get('completed')?.value;
     this.dialogRef.close(this.newOrder);
   }
