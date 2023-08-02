@@ -27,6 +27,8 @@ import {MatCardModule} from "@angular/material/card";
 import {FormsModule} from "@angular/forms";
 import { EditOrderDialogComponent } from './futures/edit-order-dialog/edit-order-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { AddOrderDialogComponent } from './futures/add-order-dialog/add-order-dialog.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -41,22 +43,24 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     GetFirstKey,
     OrderComponent,
     OrderCompletionPipe,
-    EditOrderDialogComponent
+    EditOrderDialogComponent,
+    AddOrderDialogComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        HttpClientModule,
-        MatButtonToggleModule,
-        MatExpansionModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatCardModule,
-        FormsModule,
-        MatCheckboxModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    HttpClientModule,
+    MatButtonToggleModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    FormsModule,
+    MatCheckboxModule,
+    MatSelectModule
+  ],
   providers: [UserHandlerService,
     {
     provide: HTTP_INTERCEPTORS,

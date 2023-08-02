@@ -9,6 +9,7 @@ import {AuthService} from "../../core/services/auth.service";
 import {OrderType} from "../../core/models/orderType";
 import {EditOrderDialogComponent} from "../edit-order-dialog/edit-order-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AddOrderDialogComponent} from "../add-order-dialog/add-order-dialog.component";
 
 @Component({
   selector: 'app-orders',
@@ -180,5 +181,34 @@ export class DashboardComponent implements OnInit {
   }
   refreshOrders() {
     this.toogleDisplayState('refresh');
+  }
+
+  openAddOrderDialog() {
+    // no to najpier musi wyslac requesta o typy dla tego usera aponziej otwieranie dialogu z injecka daty
+    console.log('w opendiaglof');
+    this.orders.getOrderTypes(this.auth.getUserId()).subscribe((types) => {
+      let addOrderDialog = this.dialog.open(AddOrderDialogComponent, {
+        height: '50vh',
+        width: '30vw',
+        data: types
+      });
+
+        addOrderDialog.afterClosed().subscribe((result) => {
+          if(result !== false) {
+            // zanim wysle to jeszcze muse zbidnowac userID orazs orderId na null
+            let newOrder: Order = {...result, orderId: 0, userId: this.auth.getUserId()};
+            this.orders.addOrder(newOrder).subscribe( (res) => {
+              this.refreshOrders();
+            },
+              (error) => {
+              console.error('cos poszlo nie tak');
+              });
+          }
+
+        });
+    },
+      (error) => {
+        console.error(error);
+      })
   }
 }

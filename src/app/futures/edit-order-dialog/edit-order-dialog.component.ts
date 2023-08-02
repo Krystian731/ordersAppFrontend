@@ -17,7 +17,7 @@ export class EditOrderDialogComponent implements OnInit {
   public orderForm!: FormGroup;
   constructor(public dialogRef: MatDialogRef<EditOrderDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: {order: Order, types: OrderType}, private formBuilder: FormBuilder, private dateService: DateService) { }
 
-  ngOnInit() {
+  ngOnInit() { //TODO make thi  a fucntion
       this.orderForm = this.formBuilder.group({
       title: [this.data.order.title, Validators.required],
       description: [this.data.order.description, Validators.required],
@@ -30,6 +30,7 @@ export class EditOrderDialogComponent implements OnInit {
 }
 
   submitDialog() { //TODO bind this
+    if(this.orderForm.invalid) return;
     this.newOrder.title = this.orderForm?.get('title')?.value;
     this.newOrder.description = this.orderForm?.get('description')?.value;
     this.newOrder.price = this.orderForm?.get('price')?.value;

@@ -2,13 +2,16 @@
   <button mat-button color="warn" (click)="logout()">wyloguj</button>
 
   <span class="flex flex-col items-center justify-center w-4/5">
-    <span>
+    <span class="flex flex-row justify-around w-full">
       <mat-button-toggle-group name="schedule" aria-label="schedule" [(ngModel)]="toggleValue">
         <mat-button-toggle [checked]="true" style="width: 150px" value="day" (click)="toogleDisplayState('day')" disableRipple>dziś</mat-button-toggle>
         <mat-button-toggle style="width: 150px" value="week" (click)="toogleDisplayState('week')" disableRipple>ten tydzień</mat-button-toggle>
         <mat-button-toggle style="width: 150px" value="custom" (click)="resetOrders()" disableRipple>wybierz zakres</mat-button-toggle>
       </mat-button-toggle-group>
+
+      <button mat-button class="add-order-button" (click)="openAddOrderDialog()">dodaj zamówienie</button>
     </span>
+
 
     <mat-form-field *ngIf="toggleValue === 'custom'">
          <mat-label>Wpisz zakres dat:</mat-label>

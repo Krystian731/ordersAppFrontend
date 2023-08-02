@@ -49,7 +49,9 @@ export class OrdersService {
   }
 
   updateOrder(updatedOrder: Order) {
-    console.log(`wartość updatedOrder w serwisie przed wsyłaniem: ${updatedOrder.plannedCompletionDate}`)
     return this.http.patch(ordersPath + updatedOrder.orderId, updatedOrder);
+  }
+  addOrder(newOrder: Order) {
+    return this.http.post(ordersPath, newOrder);
   }
 }
