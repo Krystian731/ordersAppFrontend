@@ -4,6 +4,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Roadmap](#Roadmap)
 
 ## General info
 This project is a management system for my freind's flower shop. It is designed to manage the upcoming orders. Project is not fully finished yet. 
