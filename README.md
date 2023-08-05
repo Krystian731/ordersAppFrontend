@@ -6,7 +6,7 @@
 * [Setup](#setup)
 
 ## General info
-This project is a management system for my freind's flower shop. It is designed to manage the upcoming orders. 
+This project is a management system for my freind's flower shop. It is designed to manage the upcoming orders. Project is not fully finished yet. 
 	
 ## Technologies
 Project is created with:
@@ -29,3 +29,7 @@ $ ng serve
  Then navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
  
  Note that the application will not work properly without running OrdersAppBackend.
+
+ ## Roadmap
+ * user will be greated with more animations
+ * 
