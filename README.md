@@ -16,6 +16,7 @@ Project is created with:
 * typescript: "4.9.4"
 * tailwindcss: "3.3.2"
 * ngx-cookie-service: "15.0.0"
+* angular/material: "15.2.9"
 	
 ## Setup
 To run this project, install it locally using npm:
