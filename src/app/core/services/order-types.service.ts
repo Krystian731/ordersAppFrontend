@@ -12,6 +12,9 @@ export class OrderTypesService {
   private deleteTypeSubject$ = new Subject<number>();
   public types: OrderType[] = [];
   constructor(private http: HttpClient) { }
+  getOrderTypes(userId: string): Observable<OrderType[]> {
+    return this.http.get<OrderType[]>(orderTypesPath + userId);
+  }
   emitNewTypeName(name: string) {
     this.newTypeName$.next(name);
   }
