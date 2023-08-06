@@ -39,6 +39,10 @@ getCurrentTimestamp() {
    convertControlerDataToJSONFormat(controlerData: string): string {
     return moment(controlerData, 'YYYY-MM-DD').format('YYYY-MM-DDT00:00:00');
    }
+   getCurrentDate(): string {
+    let date = new Date;
+    return date.toISOString();
+   }
 
   constructor() { }
 }

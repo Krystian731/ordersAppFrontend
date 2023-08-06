@@ -2,30 +2,19 @@
   <button mat-button color="warn" (click)="logout()">wyloguj</button>
 
   <span class="flex flex-col items-center justify-center w-4/5">
-    <span class="flex flex-row justify-around w-full">
-      <mat-button-toggle-group name="schedule" aria-label="schedule" [(ngModel)]="toggleValue">
-        <mat-button-toggle [checked]="true" style="width: 150px" value="day" (click)="toogleDisplayState('day')" disableRipple>dziś</mat-button-toggle>
-        <mat-button-toggle style="width: 150px" value="week" (click)="toogleDisplayState('week')" disableRipple>ten tydzień</mat-button-toggle>
-        <mat-button-toggle style="width: 150px" value="custom" (click)="resetOrders()" disableRipple>wybierz zakres</mat-button-toggle>
-      </mat-button-toggle-group>
 
+    <span>
+      <app-order-state-console></app-order-state-console>
       <button mat-button class="add-order-button" (click)="openAddOrderDialog()">dodaj zamówienie</button>
     </span>
 
 
-    <mat-form-field *ngIf="toggleValue === 'custom'">
-         <mat-label>Wpisz zakres dat:</mat-label>
-         <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate (dateChange)="toogleDisplayState('custom', {start: startDate.value, end: endDate.value})" placeholder="Data początkowa" #startDate>
-            <input matEndDate (dateChange)="toogleDisplayState('custom', {start: startDate.value, end: endDate.value})" placeholder="Data końcowa" #endDate>
-        </mat-date-range-input>
-        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
+
+
+
 
         <ng-container *ngFor="let order of orders$ | async; let i = index; ">
-            <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" (editEvent)="openEditDialog($event.order, $event.index)" class="w-full my-8"></app-order>
+            <app-order [order]="order" [isToDisplayDetails]="i === indexTodisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" (editEvent)="openEditDialog($event.order)" class="w-full my-8"></app-order>
         </ng-container>
 
     </span>

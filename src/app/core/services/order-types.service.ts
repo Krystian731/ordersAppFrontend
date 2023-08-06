@@ -10,7 +10,7 @@ import {HttpClient} from "@angular/common/http";
 export class OrderTypesService {
   private newTypeName$ = new Subject<string>();
   private deleteTypeSubject$ = new Subject<number>();
-  private types: OrderType[] = [];
+  public types: OrderType[] = [];
   constructor(private http: HttpClient) { }
   emitNewTypeName(name: string) {
     this.newTypeName$.next(name);

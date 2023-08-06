@@ -1,1 +1,26 @@
-<p>order-state-console works!</p>
+<mat-button-toggle-group name="schedule" aria-label="schedule" [(ngModel)]="consoleValue">
+  <mat-button-toggle [checked]="true" style="width: 150px" value="day" (click)="changeState('day')" disableRipple>dziś</mat-button-toggle>
+  <mat-button-toggle style="width: 150px" value="week" (click)="changeState('week')" disableRipple>ten tydzień</mat-button-toggle>
+  <mat-button-toggle style="width: 150px" value="custom" disableRipple >wybierz zakres</mat-button-toggle>
+</mat-button-toggle-group>
+
+<mat-form-field *ngIf="consoleValue === 'custom'">
+  <mat-label>Wpisz zakres dat:</mat-label>
+  <mat-date-range-input [rangePicker]="picker" >
+    <input matStartDate placeholder="Data początkowa" #startDate (dateChange)="checkCustomDate(startDate.value, endDate.value)">
+    <input matEndDate placeholder="Data końcowa" #endDate (dateChange)="checkCustomDate(startDate.value, endDate.value)">
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+<!-- to powinno być tak że cały czas na kazdym clicku jest trigerowana funkcja ktora sprawdza najpierw czy jest ustawiona data i czy data jest poprawnie, oczywiscie to sa osobne funkcje i jesli jest git to -->
+<!-- nie no to musi byc tak: ze dopiero jak data jest ustawiona to mozemy wyemitowac event na custom. i service to przechowuje u siebie, a niejelpiej ot on juz ma caly dateArray.
+ i wtedy juz spokojnie moze sub przejsc na to i wtedy on on odapala displayCustom-->
+
+<!--czyli robimy tak ze na kadym clicku jest wywolywane checkDisplayCUstom() i ona za kazdym razem ustawia zmienna po ngIF, i sprawdza czy daty sa ustawione. jak sa to robi dateayrray oi odpala change state i zmienia datearray w servisie-->
+<!-- dobra tutaj to trzeba zrobić na value tego ngIfa, a pozniej pisze ten chackcustom date, a pozniej juz leci request na emita i robie w dahsboardzie logike. ngswitchowska-->
+
+<!--dobra teraz -->
+
+<!-- teraz robie funckje ktotra sprawdz date i robie datearay i robi emit pozniej z refreshem -->
