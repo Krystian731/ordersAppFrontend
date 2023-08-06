@@ -11,3 +11,4 @@ export interface Order {
   orderId: number
   name?: string;
 }
+export type OrderState = 'day' | 'week' | 'custom' | 'refresh';

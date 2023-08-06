@@ -24,11 +24,14 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import {MatCardModule} from "@angular/material/card";
-import {FormsModule} from "@angular/forms";
 import { EditOrderDialogComponent } from './futures/edit-order-dialog/edit-order-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AddOrderDialogComponent } from './futures/add-order-dialog/add-order-dialog.component';
 import {MatSelectModule} from "@angular/material/select";
+import {AddNewOrderTypeDialogComponent } from './futures/add-new-order-type-dialog/add-new-order-type-dialog.component';
+import {FormsModule} from "@angular/forms";
+import { DeleteOrderTypeDialogComponent } from './futures/delete-order-type-dialog/delete-order-type-dialog.component';
+import { OrderStateConsoleComponent } from './futures/order-state-console/order-state-console.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import {MatSelectModule} from "@angular/material/select";
     OrderComponent,
     OrderCompletionPipe,
     EditOrderDialogComponent,
-    AddOrderDialogComponent
+    AddOrderDialogComponent,
+    AddNewOrderTypeDialogComponent,
+    DeleteOrderTypeDialogComponent,
+    OrderStateConsoleComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +63,9 @@ import {MatSelectModule} from "@angular/material/select";
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    FormsModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule
   ],
   providers: [UserHandlerService,
     {

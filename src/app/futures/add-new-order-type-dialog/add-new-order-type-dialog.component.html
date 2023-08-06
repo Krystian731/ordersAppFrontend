@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Add Order Type</h2>
+<mat-dialog-content>
+  <form [formGroup]="orderTypeForm">
+    <mat-form-field>
+      <mat-label>Name:</mat-label>
+      <input matInput type="text" formControlName="name" required />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="submit" [disabled]="!orderTypeForm.valid" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+
+
+
+
+

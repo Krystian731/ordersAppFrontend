@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserHandlerService} from "../../core/services/user-handler.service";
 import {Router} from "@angular/router";
 import {OrdersService} from "../../core/services/orders.service";
@@ -10,6 +10,7 @@ import {OrderType} from "../../core/models/orderType";
 import {EditOrderDialogComponent} from "../edit-order-dialog/edit-order-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AddOrderDialogComponent} from "../add-order-dialog/add-order-dialog.component";
+import {OrderTypesService} from "../../core/services/order-types.service";
 
 @Component({
   selector: 'app-orders',
@@ -27,13 +28,15 @@ export class DashboardComponent implements OnInit {
   indexTodisplayDetails: number | null = 2 ; //TODO make it prettier
 
   toggleValue: any ; //TODO delte this any!
+  @ViewChild(AddOrderDialogComponent, {static: true}) addOrderdialogRef!: AddOrderDialogComponent;
 
   constructor(private users: UserHandlerService,
               private router: Router,
               private orders: OrdersService,
               private date: DateService,
               private auth: AuthService,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              private orderTypesService: OrderTypesService
               ) {}
 
   ngOnInit() {
@@ -183,19 +186,27 @@ export class DashboardComponent implements OnInit {
     this.toogleDisplayState('refresh');
   }
 
-  openAddOrderDialog() {
-    // no to najpier musi wyslac requesta o typy dla tego usera aponziej otwieranie dialogu z injecka daty
-    console.log('w opendiaglof');
-    this.orders.getOrderTypes(this.auth.getUserId()).subscribe((types) => {
-      let addOrderDialog = this.dialog.open(AddOrderDialogComponent, {
-        height: '50vh',
-        width: '30vw',
-        data: types
+  openAddOrderDialog() {//TODO zmioenic kolejneosc. najpierw otweira sie dialog a pozniej sie typy pobieraja i odaplaja inne subskrybjce
+      let addOrderDialog = this.dialog.open(AddOrderDialogComponent, {height: '50vh', width: '30vw'});
+      this.orders.getOrderTypes(this.auth.getUserId()).subscribe((types) => {this.orderTypesService.setTypes(types)});
+
+      this.orderTypesService.getNewTypeSubject().subscribe((name) => { //TODO BETER naming, code is not readable
+        this.orderTypesService.addNewTypeName(name, this.auth.getUserId()).subscribe((res) => {
+          this.orders.getOrderTypes(this.auth.getUserId()).subscribe((newTypes) => {
+            this.orderTypesService.setTypes(newTypes);
+          })
+        })
       });
+        this.orderTypesService.getDeleteSubject().subscribe((orderTypeId) => {
+          this.orderTypesService.deleteOrderType(this.auth.getUserId(), orderTypeId).subscribe(() => {
+            this.orders.getOrderTypes(this.auth.getUserId()).subscribe((newTypes) => {
+              this.orderTypesService.setTypes(newTypes);
+            });
+          })
+        });
 
         addOrderDialog.afterClosed().subscribe((result) => {
           if(result !== false) {
-            // zanim wysle to jeszcze muse zbidnowac userID orazs orderId na null
             let newOrder: Order = {...result, orderId: 0, userId: this.auth.getUserId()};
             this.orders.addOrder(newOrder).subscribe( (res) => {
               this.refreshOrders();
@@ -206,9 +217,6 @@ export class DashboardComponent implements OnInit {
           }
 
         });
-    },
-      (error) => {
-        console.error(error);
-      })
+
   }
 }
