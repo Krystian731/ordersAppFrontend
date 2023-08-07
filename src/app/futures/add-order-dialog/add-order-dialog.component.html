@@ -40,7 +40,7 @@
         <mat-form-field (click)="refreshTypes()">
           <mat-label>typ zamówienia</mat-label>
             <mat-select  formControlName="orderTypeName" >
-              <mat-option *ngFor="let type of types; let i = index" [value]="i">
+              <mat-option *ngFor="let type of orderTypes; let i = index" [value]="i">
                 {{ type.name }}
               </mat-option>
             </mat-select>
@@ -49,7 +49,6 @@
       <button mat-flat-button (click)="openAddNewOrderTypeDialog()">dodaj nowy</button>
       <button mat-flat-button (click)="openDeleteOrderTypeDialog()">usuń typ</button>
       <button mat-flat-button (click)="logTypes()">logtypes</button>
-
 
       <mat-checkbox formControlName="completed">Completed</mat-checkbox>
   </form>

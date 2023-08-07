@@ -6,8 +6,15 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from "@angular/material/icon";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatCardModule} from "@angular/material/card";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -20,8 +27,15 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatSlideToggleModule
-
+    MatSlideToggleModule,
+    MatButtonToggleModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    FormsModule
   ],
   exports:[
     MatIconModule,
@@ -31,6 +45,15 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatFormFieldModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatSlideToggleModule]
+    MatSlideToggleModule,
+    MatButtonToggleModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    FormsModule
+  ]
 })
 export class MaterialModule { }

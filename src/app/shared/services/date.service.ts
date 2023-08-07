@@ -5,14 +5,7 @@ import moment from 'moment';
 })
 export class DateService {
 
-getCurrentTimestamp() {
-  const currentDate = new Date();
-  const timestamp = currentDate.toISOString().split('.')[0];
-  console.log(timestamp);
-  return timestamp;
-}
-
-  getDateRange(startDate: string, endDate: string): string[] { //TODO refactor it to use convert fucntions
+  getDateRange(startDate: string, endDate: string): string[] {
       if(startDate === '' || endDate === '')
         return [];
 
@@ -21,10 +14,8 @@ getCurrentTimestamp() {
       const endDateFormat = moment(endDate, 'DD/MM/YYYY').add(1,'d').format('YYYY-MM-DD');
 
       if(moment(startDateFormat,'YYYY-MM-DD').isAfter(moment(endDateFormat,'YYYY-MM-DD'))){
-        console.log('guard w daterane!!');
         return [];
       }
-
 
       let dateVarFormat= startDateFormat;
       let dateArrayFormat: string[] = [];
@@ -33,7 +24,6 @@ getCurrentTimestamp() {
         dateArrayFormat.push(dateVarFormat);
         dateVarFormat = moment(dateVarFormat, 'YYYY-MM-DD').add(1,'d').format('YYYY-MM-DD');
       }
-      console.log(`dateArrayFormated: ${dateArrayFormat}`);
       return dateArrayFormat;
     }
    convertControlerDataToJSONFormat(controlerData: string): string {
@@ -43,6 +33,4 @@ getCurrentTimestamp() {
     let date = new Date;
     return date.toISOString();
    }
-
-  constructor() { }
 }

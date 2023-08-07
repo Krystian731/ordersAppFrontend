@@ -9,7 +9,7 @@ import {Creditentials} from "../../core/models/credentials.model";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  @Output() onLogin = new EventEmitter<Creditentials>();
+  @Output() onLogin: EventEmitter<Creditentials> = new EventEmitter<Creditentials>();
 
    serverErrorMess?: string;
   signInForm: FormGroup = new FormGroup({

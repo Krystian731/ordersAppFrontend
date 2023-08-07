@@ -12,32 +12,47 @@ export class OrderTypesService {
   private deleteTypeSubject$ = new Subject<number>();
   public types: OrderType[] = [];
   constructor(private http: HttpClient) { }
-  getOrderTypes(userId: string): Observable<OrderType[]> {
+  getOrderTypesRequest(userId: string): Observable<OrderType[]> {
     return this.http.get<OrderType[]>(orderTypesPath + userId);
   }
   emitNewTypeName(name: string) {
+
     this.newTypeName$.next(name);
   }
-  getNewTypeSubject() {
-    return this.newTypeName$.asObservable();// try this without asobservable
+  getNewOrderTypeSubject(): Observable<string> {
+    return this.newTypeName$.asObservable();
   }
-  addNewTypeName(name: string, userId: string) {
+  addNewOrderTypeName(name: string, userId: string): Observable<object> {
     return this.http.post(orderTypesPath, {name: name, userId: userId});
   }
-  deleteOrderType(userId: string, oderTypeId: number) {
+  deleteOrderType(userId: string, oderTypeId: number): Observable<object> {
     return this.http.delete(`${orderTypesPath}${userId}/${oderTypeId}`);
   }
-  setTypes(types: OrderType[]) {
+  setOrderTypes(types: OrderType[]) {
     this.types = types;
   }
-  getTypes(): OrderType[] {
+  getOrderTypes(): OrderType[] {
     return this.types;
   }
   emitDeleteType(orderTypeId: number) {
     this.deleteTypeSubject$.next(orderTypeId);
   }
-  getDeleteSubject() {
+  getDeleteOrderSubject(): Observable<number> {
     return this.deleteTypeSubject$.asObservable();// try this without asobservable
+  }
+  getOrderTypeNameById(orderTypeId: number) {
+    for(let type of this.types) {
+      if(type.orderTypeId === orderTypeId) {
+        return type.name;
+      }
+    }
+    return 'nieprzypisany';
+  }
+  getOrderTypeNameByIndex(indexInTheArray: number) {
+    return this.types[indexInTheArray].name;
+  }
+  getOrderTypeIdByIndex(indexInTheArray: number) {
+    return this.types[indexInTheArray].orderTypeId;
   }
 
 

@@ -10,20 +10,19 @@ import {OrderType} from "../../core/models/orderType";
   templateUrl: './delete-order-type-dialog.component.html',
   styleUrls: ['./delete-order-type-dialog.component.scss']
 })
-export class DeleteOrderTypeDialogComponent implements OnInit{
-  public types: OrderType[] = this.typesService.getTypes();
+export class DeleteOrderTypeDialogComponent implements OnInit {
   public selectForm!: FormGroup;
+  public orderTypes: OrderType[] = [];
   constructor(public dialogRef: MatDialogRef<DeleteOrderTypeDialogComponent>, private formBuilder: FormBuilder, private dialog: MatDialog, private typesService: OrderTypesService) {
   }
   ngOnInit() {
+    this.orderTypes = this.typesService.getOrderTypes();
     this.selectForm = this.formBuilder.group({
       orderTypeName: ['', Validators.required]
     });
-
   }
   submitDialog() {
-    this.typesService.emitDeleteType(this.types[this.selectForm?.get('orderTypeName')?.value].orderTypeId);
-    console.log('emit');
+    this.typesService.emitDeleteType(this.orderTypes[this.selectForm?.get('orderTypeName')?.value].orderTypeId);
     this.dialogRef.close();
   }
 }

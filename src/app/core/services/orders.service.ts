@@ -14,7 +14,7 @@ export class OrdersService {
   public dateArray: string[] = [];
 
   constructor(private http: HttpClient, private orderTypesService: OrderTypesService, private dateService: DateService) { }
-  updateOrder(updatedOrder: Order): Observable<Object> { //TODO check this type ?? object?
+  updateOrder(updatedOrder: Order): Observable<Object> {
     return this.http.patch(ordersPath + updatedOrder.orderId, updatedOrder);
   }
   addOrder(newOrder: Order): Observable<Object> {
@@ -32,35 +32,36 @@ export class OrdersService {
   getDateArray(): string[] {
     return this.dateArray;
   }
-  getOrdersForDay(userId: string) {
+  getOrdersForDay(userId: string): Observable<Order[]> {
      return this.http.get<Order[]>(ordersForDayPath + userId + '/'+ this.dateService.getCurrentDate()).pipe(
        map((orders: Order[]) =>
          orders.map(order => ({
            ...order,
-           name: this.orderTypesService.types[order.orderTypeId - 1].name //TODO make functions that searches typesarray for caraint typeId and returns name
+           name:
+           this.orderTypesService.getOrderTypeNameById(order.orderTypeId)
          }))
        )
      );
   }
 
-  getOrdersForWeek(userId: string) {
+  getOrdersForWeek(userId: string): Observable<Order[]> {
     return this.http.get<Order[]>(ordersForWeekPath + userId + '/' + this.dateService.getCurrentDate()).pipe(
       map((orders: Order[]) =>
         orders.map(order => ({
           ...order,
-          name: this.orderTypesService.types[order.orderTypeId - 1].name //TODO make functions that searches typesarray for caraint typeId and returns name
+          name: this.orderTypesService.getOrderTypeNameById(order.orderTypeId)
         }))
       )
     );
   }
-  getOrdersForRange(userId: string, range: string[]) {
+  getOrdersForRange(userId: string, range: string[]): Observable<Order[]> {
     let requests: Observable<Order[]>[] = [];
     for (let day of range) {
       requests.push(this.http.get<Order[]>(ordersForDayPath + userId + '/' + day + 'T00:00:00').pipe(
         map((orders: Order[]) =>
           orders.map(order => ({
             ...order,
-            name: this.orderTypesService.types[order.orderTypeId - 1].name //TODO make functions that searches typesarray for caraint typeId and returns name
+            name: this.orderTypesService.getOrderTypeNameById(order.orderTypeId)
           }))
         )
       ));

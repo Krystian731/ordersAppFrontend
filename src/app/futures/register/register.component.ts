@@ -9,7 +9,7 @@ import {Creditentials} from "../../core/models/credentials.model";
 })
 export class RegisterComponent {
 
-  @Output() registerEvent = new EventEmitter<Creditentials>();
+  @Output() registerEvent: EventEmitter<Creditentials> = new EventEmitter<Creditentials>();
 
 
   serverErrorMess?: string;

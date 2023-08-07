@@ -17,7 +17,7 @@ export class EditOrderDialogComponent implements OnInit {
   public orderForm!: FormGroup;
   constructor(public dialogRef: MatDialogRef<EditOrderDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: {order: Order, types: OrderType}, private formBuilder: FormBuilder, private dateService: DateService) { }
 
-  ngOnInit() { //TODO make thi  a fucntion
+  ngOnInit() {
       this.orderForm = this.formBuilder.group({
       title: [this.data.order.title, Validators.required],
       description: [this.data.order.description, Validators.required],
@@ -29,7 +29,7 @@ export class EditOrderDialogComponent implements OnInit {
   });
 }
 
-  submitDialog() { //TODO bind this
+  submitDialog() {
     if(this.orderForm.invalid) return;
     this.newOrder.title = this.orderForm?.get('title')?.value;
     this.newOrder.description = this.orderForm?.get('description')?.value;
@@ -37,7 +37,6 @@ export class EditOrderDialogComponent implements OnInit {
     this.newOrder.client = this.orderForm?.get('client')?.value;
     this.newOrder.quantity = this.orderForm?.get('quantity')?.value;
     this.newOrder.plannedCompletionDate = this.dateService.convertControlerDataToJSONFormat(this.orderForm?.get('plannedCompletionDate')?.value);
-
     this.newOrder.completed = this.orderForm?.get('completed')?.value;
     this.dialogRef.close(this.newOrder);
   }

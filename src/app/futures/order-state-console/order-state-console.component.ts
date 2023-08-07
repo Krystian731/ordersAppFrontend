@@ -9,13 +9,12 @@ import {DateService} from "../../shared/services/date.service";
   styleUrls: ['./order-state-console.component.scss']
 })
 export class OrderStateConsoleComponent {
-  public consoleValue: string = 'day';
+  public consoleValueNgModel: string = 'day';
   constructor(private orderService: OrdersService, private dateService: DateService) {};
   changeState(state: OrderState) {
     this.orderService.changeOrderState(state);
   }
   checkCustomDate(startDate: string, endDate: string) {
-
     if(startDate == null || endDate == null || startDate == '' || endDate == '') {
       return;
     }

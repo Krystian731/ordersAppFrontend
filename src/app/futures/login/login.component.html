@@ -1,7 +1,7 @@
 <section class="mx-8 pb-24 flex flex-col items-center justify-center">
   <form [formGroup]="signInForm" class=" mt-6 flex flex-col justify-center items-center">
     <mat-form-field>
-      <input  matInput placeholder="nazwa użytkownika" formControlName="username" #username>
+      <input  matInput placeholder="nazwa użytkownika" formControlName="username">
       <mat-error *ngIf="signInForm.invalid" [ngSwitch]="signInForm.get('username')?.errors | getFirstKey">
         <span *ngSwitchCase="'required'">Nazwa użytkownika nie może być puste</span>
         <span *ngSwitchCase="'minlength'">Nazwa użytkownika musi zawierać conajmniej 3 znaki</span>
@@ -11,15 +11,13 @@
 
 
     <mat-form-field>
-      <input matInput type="password" placeholder="hasło" formControlName="password" #password>
+      <input matInput type="password" placeholder="hasło" formControlName="password">
       <mat-error *ngIf="signInForm.invalid" [ngSwitch]="signInForm.get('password')?.errors | getFirstKey">
         <span *ngSwitchCase="'required'">Hasło nie może być puste</span>
         <span *ngSwitchCase="'minlength'">Hasło musi zawierać conajmniej 3 znaki</span>
         <span *ngSwitchCase="'maxlength'">Hasło nie może być dłuższe niż 20 znaków</span>
       </mat-error>
     </mat-form-field>
-
-<!--    nie no problem jest kurwa prosty. jak daje error np na password to wtedy looogin jest pusty i jest blad. trzeba zrobic gurad claus-->
 
     <button mat-flat-button class="mt-6" (click)="submitLogin()" aria-label="submit login" color="primary">
       zaloguj

@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   public orders$?: Observable<Order[]>;
   currentOrderState: OrderState = 'day';
 
-  indexTodisplayDetails: number | null = 2 ; //TODO make it prettier
+  toDisplayDetails: number | null = null;
 
   constructor(private users: UserHandlerService,
               private router: Router,
@@ -32,9 +32,8 @@ export class DashboardComponent implements OnInit {
               private orderTypesService: OrderTypesService
               ) {}
 
-
   ngOnInit() {
-    this.orderTypesService.getOrderTypes(this.auth.getUserId()).subscribe((newTypes) => this.orderTypesService.setTypes(newTypes));
+    this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => this.orderTypesService.setOrderTypes(newTypes));
 
     this.orders.getOrderState().subscribe((newState) => {
       if(newState === 'refresh')
@@ -51,11 +50,11 @@ export class DashboardComponent implements OnInit {
   }
 
   assignIndex(index: number){
-    this.indexTodisplayDetails === index ? this.indexTodisplayDetails = null : this.indexTodisplayDetails = index;
+    this.toDisplayDetails === index ? this.toDisplayDetails = null : this.toDisplayDetails = index;
   }
 
   openEditDialog(order: Order) {
-    this.orderTypesService.getOrderTypes(this.auth.getUserId()).subscribe((types) => {
+    this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((types) => {
       let dialogRef = this.dialog.open(EditOrderDialogComponent, {
           height: '50vh',
           width: '30vw',
@@ -77,19 +76,19 @@ export class DashboardComponent implements OnInit {
   }
   openAddOrderDialog() {
       let addOrderDialog = this.dialog.open(AddOrderDialogComponent, {height: '50vh', width: '30vw'});
-      this.orderTypesService.getOrderTypes(this.auth.getUserId()).subscribe((types) => {this.orderTypesService.setTypes(types)});
+      this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {this.orderTypesService.setOrderTypes(newTypes)});
 
-      this.orderTypesService.getNewTypeSubject().subscribe((name) => { //TODO BETER naming, code is not readable
-        this.orderTypesService.addNewTypeName(name, this.auth.getUserId()).subscribe(() => {
-          this.orderTypesService.getOrderTypes(this.auth.getUserId()).subscribe((newTypes) => {
-            this.orderTypesService.setTypes(newTypes);
+      this.orderTypesService.getNewOrderTypeSubject().subscribe((name) => {
+        this.orderTypesService.addNewOrderTypeName(name, this.auth.getUserId()).subscribe(() => {
+          this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {
+            this.orderTypesService.setOrderTypes(newTypes);
           })
         })
       });
-        this.orderTypesService.getDeleteSubject().subscribe((orderTypeId) => {
+        this.orderTypesService.getDeleteOrderSubject().subscribe((orderTypeId) => {
           this.orderTypesService.deleteOrderType(this.auth.getUserId(), orderTypeId).subscribe(() => {
-            this.orderTypesService.getOrderTypes(this.auth.getUserId()).subscribe((newTypes) => {
-              this.orderTypesService.setTypes(newTypes);
+            this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {
+              this.orderTypesService.setOrderTypes(newTypes);
             });
           })
         });

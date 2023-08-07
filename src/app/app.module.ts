@@ -18,18 +18,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthorizationInterceptor} from "./shared/utils/authorization.interceptor";
 import {UserHandlerService} from "./core/services/user-handler.service";
 import { OrderComponent } from './futures/order/order.component';
-import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {OrderCompletionPipe} from "./shared/pipes/orderCompletion.pipe";
-import {MatExpansionModule} from "@angular/material/expansion";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
-import {MatCardModule} from "@angular/material/card";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 import { EditOrderDialogComponent } from './futures/edit-order-dialog/edit-order-dialog.component';
-import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AddOrderDialogComponent } from './futures/add-order-dialog/add-order-dialog.component';
-import {MatSelectModule} from "@angular/material/select";
 import {AddNewOrderTypeDialogComponent } from './futures/add-new-order-type-dialog/add-new-order-type-dialog.component';
-import {FormsModule} from "@angular/forms";
 import { DeleteOrderTypeDialogComponent } from './futures/delete-order-type-dialog/delete-order-type-dialog.component';
 import { OrderStateConsoleComponent } from './futures/order-state-console/order-state-console.component';
 
@@ -58,14 +51,6 @@ import { OrderStateConsoleComponent } from './futures/order-state-console/order-
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    MatButtonToggleModule,
-    MatExpansionModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    FormsModule
   ],
   providers: [UserHandlerService,
     {

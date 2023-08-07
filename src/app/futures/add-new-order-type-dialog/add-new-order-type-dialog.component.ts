@@ -21,9 +21,9 @@ export class AddNewOrderTypeDialogComponent implements OnInit{
     });
   }
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.orderTypeForm.valid) {
-      this.orderTypesService.emitNewTypeName(this.orderTypeForm.get('name')?.value); // tutaj zmienic te wartosc na oradziwa
+      this.orderTypesService.emitNewTypeName(this.orderTypeForm.get('name')?.value);
       this.dialogRef.close();
     }
   }

@@ -3,12 +3,10 @@
 
   <mat-dialog-content>
     <form [formGroup]="selectForm">
-
-
         <mat-form-field >
           <mat-label>typ zamówienia</mat-label>
             <mat-select  formControlName="orderTypeName" >
-              <mat-option *ngFor="let type of types; let i = index" [value]="i">
+              <mat-option *ngFor="let type of orderTypes; let i = index" [value]="i">
                 {{ type.name }}
               </mat-option>
             </mat-select>

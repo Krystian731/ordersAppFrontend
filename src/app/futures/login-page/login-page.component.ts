@@ -17,12 +17,11 @@ export class LoginPageComponent {
   @ViewChild(RegisterComponent) registerComponent: RegisterComponent | undefined ;
 
   loginTry(creditentials: Creditentials) {
-    console.log('w parent po emit event');
     this.users.loginRequest(creditentials).subscribe({
       next: (response: HttpResponse<any>) => {
         const id: number = response.body;
         const token: string | null = response.headers.get('Authorization');
-        token === null ? console.error('no auth token !!!') : this.users.login(id, token);
+        token === null ? console.error('no auth token!') : this.users.login(id, token);
       },
       error: (error) => {
         this.setLoginError(error.error.status, error.error.message);
@@ -31,13 +30,11 @@ export class LoginPageComponent {
   }
 
   setLoginError(errorStatus: string, errorMess: string) {
-    //this.loginComponent?.signInForm?.get('password')?.setErrors({'invalidData': true});
     this.loginComponent ? this.loginComponent.signInForm.get('password')?.setErrors({errorStatus: true}) : null;
     this.loginComponent ? this.loginComponent.serverErrorMess = errorMess : null;
   }
 
   setRegisterError(errorStatus: string, errorMess: string) {
-    //this.loginComponent?.signInForm?.get('password')?.setErrors({'invalidData': true});
     this.registerComponent ? this.registerComponent.signUpForm.get('password')?.setErrors({errorStatus: true}) : null;
     this.registerComponent ? this.registerComponent.serverErrorMess = errorMess : null;
   }
