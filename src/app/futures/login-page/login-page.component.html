@@ -1,4 +1,6 @@
 <main class="min-w-fit flex flex-row justify-center items-center h-screen">
-  <app-login (onLogin)="loginTry($event)"></app-login>
-  <app-register (registerEvent)="registerTry($event)"></app-register>
+  <span class="forms-wrapper flex flex-row justify-center items-center mb-24 py-3 rounded">
+    <app-login (onLogin)="loginTry($event)"></app-login>
+    <app-register (registerEvent)="registerTry($event)"></app-register>
+  </span>
 </main>
