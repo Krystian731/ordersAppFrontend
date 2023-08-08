@@ -2,22 +2,22 @@
   <section class="flex flex-row flex-wrap items-center justify-center relative">
 
     <span class="flex flex-col mt-8 md-8 mx-16 ">
-      <span class="text-lg">{{order?.title}}</span>
-      <span class="italic">{{order?.description}}</span>
+      <span class="text-lg">{{order!.title}}</span>
+      <span class="italic">{{order!.description}}</span>
     </span>
 
     <span class="flex flex-col mt-8 md-8 mx-16 absolute top-0 right-0">
-      <span>{{order?.completed | orderCompletionPipe}}</span>
-      <span>{{order?.plannedCompletionDate}}</span>
+      <span [ngClass]="{'green': order!.completed, 'red': !order!.completed}">{{order!.completed | orderCompletionPipe}}</span>
+      <span>{{order!.plannedCompletionDate}}</span>
     </span>
 
     <span class="m-auto">{{order?.client}}</span>
     <div class="dropdown-button absolute top-1/2 right-1/4   w-10 h-10 flex justify-center items-center" (click)="emitDropdownEvent()"><div>V</div></div>
   </section><br>
   <section *ngIf="isToDisplayDetails" class="flex flex-col">
-    <span>{{order?.name}}</span>
-    <span>{{order?.quantity}}szt.</span>
-    <span>{{order?.price}}zł</span>
+    <span>{{order!.name}}</span>
+    <span>{{order!.quantity}}szt.</span>
+    <span>{{order!.price}}zł</span>
     <span class="flex flex-row justify-center gap-x-3 button-area">
       <button mat-flat-button color="primary" (click)="emitEditEvent()">edytuj</button>
       <button mat-flat-button class="action-button" (click)="delete()">usuń</button>
