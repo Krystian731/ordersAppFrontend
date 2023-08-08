@@ -40,4 +40,5 @@ export class EditOrderDialogComponent implements OnInit {
     this.newOrder.completed = this.orderForm?.get('completed')?.value;
     this.dialogRef.close(this.newOrder);
   }
+
 }

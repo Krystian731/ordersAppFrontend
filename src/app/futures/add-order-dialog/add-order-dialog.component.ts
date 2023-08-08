@@ -49,14 +49,14 @@ export class AddOrderDialogComponent implements OnInit {
   }
   openAddNewOrderTypeDialog() {
     this.dialog.open(AddNewOrderTypeDialogComponent,{
-      height: '50vh',
-      width: '30vw',
+      height: '300px',
+      width: '400px',
     });
   }
   openDeleteOrderTypeDialog() {
     this.dialog.open(DeleteOrderTypeDialogComponent, {
-      height: '50vh',
-      width: '30vw'
+      height: '300px',
+      width: '400px'
     })
   }
   logTypes() {

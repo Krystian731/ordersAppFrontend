@@ -43,7 +43,7 @@ import { OrderStateConsoleComponent } from './futures/order-state-console/order-
     AddOrderDialogComponent,
     AddNewOrderTypeDialogComponent,
     DeleteOrderTypeDialogComponent,
-    OrderStateConsoleComponent
+    OrderStateConsoleComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,14 +51,17 @@ import { OrderStateConsoleComponent } from './futures/order-state-console/order-
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+
   ],
-  providers: [UserHandlerService,
+  providers: [
+    UserHandlerService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
     multi: true
   },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+
   ],
   bootstrap: [AppComponent]
 })

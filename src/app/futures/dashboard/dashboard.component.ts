@@ -10,11 +10,14 @@ import {EditOrderDialogComponent} from "../edit-order-dialog/edit-order-dialog.c
 import {MatDialog} from "@angular/material/dialog";
 import {AddOrderDialogComponent} from "../add-order-dialog/add-order-dialog.component";
 import {OrderTypesService} from "../../core/services/order-types.service";
+import {appearFromLeft, staggerEffect} from "../../shared/utils/animations";
+import {NotificationService} from "../../core/services/notification.service";
 
 @Component({
   selector: 'app-orders',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [appearFromLeft, staggerEffect]
 })
 export class DashboardComponent implements OnInit {
 
@@ -29,7 +32,8 @@ export class DashboardComponent implements OnInit {
               private date: DateService,
               private auth: AuthService,
               private dialog: MatDialog,
-              private orderTypesService: OrderTypesService
+              private orderTypesService: OrderTypesService,
+              private notificationService : NotificationService
               ) {}
 
   ngOnInit() {
@@ -47,6 +51,7 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.users.logout();
     this.router.navigateByUrl('/loginPage');
+    this.notificationService.openSnackbar('wylogowano!',true)
   }
 
   assignIndex(index: number){
@@ -56,17 +61,23 @@ export class DashboardComponent implements OnInit {
   openEditDialog(order: Order) {
     this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((types) => {
       let dialogRef = this.dialog.open(EditOrderDialogComponent, {
-          height: '50vh',
-          width: '30vw',
+          height: '800px',
+          width: '450px',
           data: {order, types}
         }
       );
       dialogRef.afterClosed().subscribe((result) => {
-        if(result !== false) {
+          if(result === false) return;
           this.orders.updateOrder(result).subscribe( () => {
             this.refreshOrders();
-          });
-        }
+            this.notificationService.openSnackbar('pomyślnie zmieniono zamówienie!', true);
+
+          },
+            (error) => {
+              this.notificationService.openSnackbar('nie udało się zmienić zamówienia!', false);
+
+              console.error(error.error)
+            });
       });
     })
   }
@@ -75,31 +86,44 @@ export class DashboardComponent implements OnInit {
     this.orders.changeOrderState('refresh');
   }
   openAddOrderDialog() {
-      let addOrderDialog = this.dialog.open(AddOrderDialogComponent, {height: '50vh', width: '30vw'});
+      let addOrderDialog = this.dialog.open(AddOrderDialogComponent, { height: '800px', width: '450px'});
       this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {this.orderTypesService.setOrderTypes(newTypes)});
 
       this.orderTypesService.getNewOrderTypeSubject().subscribe((name) => {
         this.orderTypesService.addNewOrderTypeName(name, this.auth.getUserId()).subscribe(() => {
-          this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {
+            this.notificationService.openSnackbar('dodano nowy typ!', true);
+            this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {
             this.orderTypesService.setOrderTypes(newTypes);
           })
-        })
+        },
+          (error) => {
+            this.notificationService.openSnackbar('nie udało się dodać typu!', false);
+            console.error(error.error);
+          })
       });
         this.orderTypesService.getDeleteOrderSubject().subscribe((orderTypeId) => {
           this.orderTypesService.deleteOrderType(this.auth.getUserId(), orderTypeId).subscribe(() => {
+              this.notificationService.openSnackbar('usunięto typ!', true);
             this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {
               this.orderTypesService.setOrderTypes(newTypes);
             });
-          })
+          },
+            (error) => {
+              this.notificationService.openSnackbar('nie udało się usunąć typu!', false);
+              console.error(error.error);
+            })
         });
         addOrderDialog.afterClosed().subscribe((result) => {
           if(result !== false) {
             let newOrder: Order = {...result, orderId: 0, userId: this.auth.getUserId()};
             this.orders.addOrder(newOrder).subscribe( () => {
               this.refreshOrders();
-            },
-              () => {
-              console.error('cos poszlo nie tak');
+                this.notificationService.openSnackbar('dodano nowe zamówienie!', true);
+
+              },
+              (error) => {
+                this.notificationService.openSnackbar('nie udało się dodać zamówienia!', false);
+                console.error(error.error);
               });
           }
         });

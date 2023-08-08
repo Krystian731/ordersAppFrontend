@@ -25,8 +25,6 @@ export class LoginComponent {
 
   submitLogin() {
     if(this.signInForm.invalid) return;
-    console.log('login2');
-
     const credentials: Creditentials = this.signInForm.value;
     this.onLogin.emit(credentials);
   }

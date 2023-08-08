@@ -1,16 +1,16 @@
-<h2 mat-dialog-title>Dodaj nowy typ zamówienia</h2>
-<mat-dialog-content>
-  <form [formGroup]="orderTypeForm">
+<h2 mat-dialog-title class="text-center" style="min-height: 100px">Dodaj nowy typ zamówienia</h2>
+<mat-dialog-content class="justify-center" style="display: flex">
+  <form [formGroup]="orderTypeForm" class="flex flex-col justify-items-center w-3/5">
     <mat-form-field>
-      <mat-label>Name:</mat-label>
+      <mat-label>nowy typ</mat-label>
       <input matInput type="text" formControlName="name" required />
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button type="submit" [disabled]="!orderTypeForm.valid" (click)="onSubmit()">Save</button>
-  <button mat-button mat-dialog-close>Cancel</button>
+<mat-dialog-actions  style="display: flex; justify-content: center">
+  <button mat-button type="submit" [disabled]="!orderTypeForm.valid" (click)="onSubmit()">zapisz</button>
+  <button mat-button mat-dialog-close>anuluj</button>
 </mat-dialog-actions>
 
 

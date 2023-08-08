@@ -1,5 +1,5 @@
 <section class="mx-8 flex flex-col items-center justify-center">
-  <form [formGroup]="signInForm" class=" mt-6 flex flex-col justify-center items-center">
+  <form [formGroup]="signInForm" class=" mt-6 flex flex-col justify-center items-center" (ngSubmit)="submitLogin()">
     <mat-form-field>
       <input  matInput placeholder="nazwa użytkownika" formControlName="username">
       <mat-error *ngIf="signInForm.invalid" [ngSwitch]="signInForm.get('username')?.errors | getFirstKey">
@@ -19,11 +19,9 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-flat-button class="mt-6" (click)="submitLogin()" aria-label="submit login" color="primary">
+    <button mat-flat-button class="mt-6" type="submit" aria-label="submit login" color="primary">
       zaloguj
     </button>
     <mat-error *ngIf="serverErrorMess">{{serverErrorMess}}</mat-error>
-
-
   </form>
 </section>

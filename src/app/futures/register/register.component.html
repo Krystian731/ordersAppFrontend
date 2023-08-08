@@ -1,5 +1,5 @@
 <section class ="mx-8 flex flex-col items-center justify-center">
-  <form [formGroup]="signUpForm" class=" mt-6 flex flex-col justify-center items-center" >
+  <form [formGroup]="signUpForm" class=" mt-6 flex flex-col justify-center items-center" (ngSubmit)="registerRequest(username.value, password.value)">
     <mat-form-field>
       <input matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #username>
       <mat-error *ngIf="signUpForm.invalid" [ngSwitch]="signUpForm.get('username')?.errors | getFirstKey">
@@ -19,7 +19,7 @@
       </mat-error>
 
     </mat-form-field>
-    <button class="mt-6" mat-flat-button color="primary" (click)="registerRequest(username.value, password.value)" >zarejestruj</button>
+    <button class="mt-6" mat-flat-button color="primary" type="submit" >zarejestruj</button>
     <mat-error *ngIf="serverErrorMess">{{serverErrorMess}}</mat-error>
 
 

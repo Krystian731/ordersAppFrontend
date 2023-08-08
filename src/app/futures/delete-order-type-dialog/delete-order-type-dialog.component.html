@@ -1,11 +1,10 @@
 <span class="relative flex flex-col justify-center items-center">
-  <h2 mat-dialog-title>usun typ zamówienia</h2>
-
+  <h2 mat-dialog-title>Usuń typ zamówienia</h2>
   <mat-dialog-content>
     <form [formGroup]="selectForm">
         <mat-form-field >
           <mat-label>typ zamówienia</mat-label>
-            <mat-select  formControlName="orderTypeName" >
+            <mat-select formControlName="orderTypeName" >
               <mat-option *ngFor="let type of orderTypes; let i = index" [value]="i">
                 {{ type.name }}
               </mat-option>
@@ -16,6 +15,6 @@
 
   <mat-dialog-actions>
     <button mat-button [mat-dialog-close]="false">anuluj</button>
-    <button mat-raised-button color="primary" (click)="submitDialog()">akceptuj</button>
+    <button mat-raised-button color="primary" (click)="submitDialog()">usuń</button>
   </mat-dialog-actions>
 </span>

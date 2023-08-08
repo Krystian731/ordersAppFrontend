@@ -4,6 +4,7 @@ import { RegisterComponent} from "../register/register.component";
 import {Creditentials} from "../../core/models/credentials.model";
 import {UserHandlerService} from "../../core/services/user-handler.service";
 import {HttpResponse} from "@angular/common/http";
+import {NotificationService} from "../../core/services/notification.service";
 
 @Component({
   selector: 'app-login-page',
@@ -11,10 +12,10 @@ import {HttpResponse} from "@angular/common/http";
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
-  constructor(private users: UserHandlerService) {}
+  constructor(private users: UserHandlerService, private notification: NotificationService) {}
 
-  @ViewChild(LoginComponent) loginComponent: LoginComponent | undefined ;
-  @ViewChild(RegisterComponent) registerComponent: RegisterComponent | undefined ;
+  @ViewChild(LoginComponent) loginComponent: LoginComponent | undefined;
+  @ViewChild(RegisterComponent) registerComponent: RegisterComponent | undefined;
 
   loginTry(creditentials: Creditentials) {
     this.users.loginRequest(creditentials).subscribe({
@@ -24,7 +25,7 @@ export class LoginPageComponent {
         token === null ? console.error('no auth token!') : this.users.login(id, token);
       },
       error: (error) => {
-        this.setLoginError(error.error.status, error.error.message);
+        this.setLoginError(error.error.status, 'złe dane użytkownika!');
       }
   });
   }
@@ -41,13 +42,11 @@ export class LoginPageComponent {
 
   registerTry(creditentials: Creditentials) {
     this.users.registerRequest(creditentials).subscribe({
-      next: (response: HttpResponse<any>) => {
-        console.log('succesfull register');
-        console.log(response);
-        },
+      next: () => {this.notification.openSnackbar('zarejestrowano!', true)},
       error: (error) => {
-        this.setRegisterError(error.error.status, error.error.error);
+        this.setRegisterError(error.error.status, 'nie udało się zarejestrować');
         console.log(error);
+        this.notification.openSnackbar('nie zarejestrowano!', false)
         }
     })
   }

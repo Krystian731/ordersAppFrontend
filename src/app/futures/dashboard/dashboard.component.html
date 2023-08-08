@@ -7,8 +7,10 @@
       <button mat-button class="add-order-button" (click)="openAddOrderDialog()">dodaj zamówienie</button>
     </span>
 
-    <ng-container *ngFor="let order of orders$ | async; let i = index;" >
-            <app-order [order]="order" [isToDisplayDetails]="i === toDisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" (editEvent)="openEditDialog($event.order)" class="w-2/3 xl:w-1/2 my-8"></app-order>
+    <ng-container *ngFor="let order of orders$ | async; let i = index;">
+            <app-order [order]="order" [isToDisplayDetails]="i === toDisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" (editEvent)="openEditDialog($event.order)" class="w-2/3 xl:w-1/2 my-8 animation-delay" @appearFromLeft></app-order>
     </ng-container>
+
+
   </span>
 </main>

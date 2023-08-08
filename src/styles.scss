@@ -12,3 +12,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   /* ... other color variables */
 }
 
+.mat-mdc-snack-bar-container {
+  &.green-snackbar {
+    --mdc-snackbar-container-color: #ccffcc;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #000000;
+    text-align: center;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.red-snackbar {
+    --mdc-snackbar-container-color: #fa6e66;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #000000;
+    text-align: center;
+  }
+}

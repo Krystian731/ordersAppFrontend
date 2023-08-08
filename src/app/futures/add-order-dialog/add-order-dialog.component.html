@@ -1,8 +1,6 @@
-<span class="relative flex flex-col justify-center items-center">
-  <h2 mat-dialog-title class=" ">edycja zamówienia</h2>
-
-  <mat-dialog-content>
-    <form [formGroup]="orderForm">
+  <h2 mat-dialog-title class="text-center">dodaj zamówienie</h2>
+  <mat-dialog-content  class="justify-center" style="display: flex; height: 620px; max-height: 70vh;">
+    <form [formGroup]="orderForm" class="flex flex-col justify-center w-4/5">
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput formControlName="title" required>
@@ -29,7 +27,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Planned Completion Date</mat-label>
+        <mat-label>termin</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="plannedCompletionDate" id="datepicker" required #datapickerRef>
         <mat-hint>MM/DD/YYYY</mat-hint>
 
@@ -45,17 +43,13 @@
               </mat-option>
             </mat-select>
         </mat-form-field>
-
-      <button mat-flat-button (click)="openAddNewOrderTypeDialog()">dodaj nowy</button>
-      <button mat-flat-button (click)="openDeleteOrderTypeDialog()">usuń typ</button>
-      <button mat-flat-button (click)="logTypes()">logtypes</button>
-
-      <mat-checkbox formControlName="completed">Completed</mat-checkbox>
+      <mat-checkbox formControlName="completed">Zrealizowane</mat-checkbox>
   </form>
   </mat-dialog-content>
 
-  <mat-dialog-actions>
+  <mat-dialog-actions style="display: flex; justify-content: center" align="end">
     <button mat-button [mat-dialog-close]="false">anuluj</button>
     <button mat-raised-button color="primary" (click)="submitDialog()">akceptuj</button>
+    <button mat-flat-button (click)="openAddNewOrderTypeDialog()">nowy typ</button>
+    <button mat-flat-button (click)="openDeleteOrderTypeDialog()">usuń typ</button>
   </mat-dialog-actions>
-</span>
