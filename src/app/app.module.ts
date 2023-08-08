@@ -25,6 +25,7 @@ import { AddOrderDialogComponent } from './futures/add-order-dialog/add-order-di
 import {AddNewOrderTypeDialogComponent } from './futures/add-new-order-type-dialog/add-new-order-type-dialog.component';
 import { DeleteOrderTypeDialogComponent } from './futures/delete-order-type-dialog/delete-order-type-dialog.component';
 import { OrderStateConsoleComponent } from './futures/order-state-console/order-state-console.component';
+import { CutTimePipe } from './shared/pipes/cut-time.pipe';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { OrderStateConsoleComponent } from './futures/order-state-console/order-
     AddNewOrderTypeDialogComponent,
     DeleteOrderTypeDialogComponent,
     OrderStateConsoleComponent,
+    CutTimePipe,
   ],
   imports: [
     BrowserModule,

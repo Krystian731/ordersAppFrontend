@@ -8,7 +8,7 @@
 
     <span class="flex flex-col mt-8 md-8 mx-16 absolute top-0 right-0">
       <span [ngClass]="{'green': order!.completed, 'red': !order!.completed}">{{order!.completed | orderCompletionPipe}}</span>
-      <span>{{order!.plannedCompletionDate}}</span>
+      <span>{{order!.plannedCompletionDate | cutTime }}</span>
     </span>
 
     <span class="m-auto">{{order?.client}}</span>
