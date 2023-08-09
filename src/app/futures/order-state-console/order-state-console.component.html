@@ -1,0 +1,16 @@
+<mat-button-toggle-group name="order-console" [(ngModel)]="consoleValueNgModel">
+  <mat-button-toggle [checked]="true" style="width: 150px" value="day" (click)="changeState('day')" disableRipple>dziś</mat-button-toggle>
+  <mat-button-toggle style="width: 150px" value="week" (click)="changeState('week')" disableRipple>ten tydzień</mat-button-toggle>
+  <mat-button-toggle style="width: 150px" value="custom" disableRipple >wybierz zakres</mat-button-toggle>
+</mat-button-toggle-group>
+
+<mat-form-field *ngIf="consoleValueNgModel === 'custom'">
+  <mat-label>Wpisz zakres dat:</mat-label>
+  <mat-date-range-input [rangePicker]="picker" >
+    <input matStartDate placeholder="Data początkowa" #startDate (dateChange)="checkCustomDate(startDate.value, endDate.value)">
+    <input matEndDate placeholder="Data końcowa" #endDate (dateChange)="checkCustomDate(startDate.value, endDate.value)">
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
