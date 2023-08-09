@@ -17,15 +17,14 @@ export class OrderComponent implements OnInit {
   @Input() index?: number;
   @Output() dropdownEvent = new EventEmitter<number>();
   @Output() editEvent = new EventEmitter<{order: Order, index: number}>();
+  @Output() deleteEvent = new EventEmitter<number>();
 
 
   constructor(public dialog: MatDialog) {}
   ngOnInit() {
     console.log('w oder: ' + this.orderTypeName);
   }
-  delete() {
 
-  }
   emitEditEvent() {
     if(this.order === undefined || this.index === undefined)
       return;
@@ -33,6 +32,9 @@ export class OrderComponent implements OnInit {
   }
   emitDropdownEvent() {
     this.dropdownEvent.emit(this.index);
+  }
+  deleteOrder() {
+    this.deleteEvent.emit(this!.order!.orderId );
   }
 
 

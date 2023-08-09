@@ -10,7 +10,8 @@ module.exports = {
     "./src/app/futures/add-order-dialog/add-order-dialog.component.html",
     "./src/app/futures/edit-order-dialog/edit-order-dialog.component.html",
     "./src/app/futures/delete-order-type-dialog/delete-order-type-dialog.component.html",
-    "./src/app/futures/add-new-order-type-dialog/add-new-order-type-dialog.component.html"
+    "./src/app/futures/add-new-order-type-dialog/add-new-order-type-dialog.component.html",
+    "./src/app/futures/delete-dialog/delete-dialog.component.html"
   ],
   theme: {
     extend: {},

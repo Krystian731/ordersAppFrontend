@@ -71,7 +71,7 @@ export class OrdersService {
         map(arr => arr.reduce((acc, val) => acc.concat(val), []))
       );
   }
-  deleteOrder(orderId: string) {
+  deleteOrder(orderId: number) {
     return this.http.delete(ordersPath + orderId);
   }
 }
