@@ -40,7 +40,7 @@
   </form>
   </mat-dialog-content>
 
-  <mat-dialog-actions style="display: flex; justify-content: center">
+  <mat-dialog-actions align="center">
     <button mat-button [mat-dialog-close]="false">anuluj</button>
-    <button mat-raised-button color="primary" (click)="submitDialog()">akceptuj</button>
+    <button mat-raised-button color="primary" (click)="submitDialog()" [disabled]="orderForm.invalid">akceptuj</button>
   </mat-dialog-actions>

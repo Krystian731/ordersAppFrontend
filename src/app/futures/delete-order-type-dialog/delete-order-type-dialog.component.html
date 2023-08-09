@@ -13,8 +13,8 @@
   </form>
   </mat-dialog-content>
 
-  <mat-dialog-actions>
+  <mat-dialog-actions align="center">
     <button mat-button [mat-dialog-close]="false">anuluj</button>
-    <button mat-raised-button color="primary" (click)="submitDialog()">usuń</button>
+    <button mat-raised-button color="warn" (click)="submitDialog()" [disabled]="selectForm.invalid">usuń</button>
   </mat-dialog-actions>
 </span>

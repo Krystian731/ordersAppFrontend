@@ -8,8 +8,8 @@
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions  style="display: flex; justify-content: center">
-  <button mat-button type="submit" [disabled]="!orderTypeForm.valid" (click)="onSubmit()">zapisz</button>
+<mat-dialog-actions align="center">
+  <button mat-button type="submit" [disabled]="orderTypeForm.invalid" (click)="onSubmit()" color="primary">zapisz</button>
   <button mat-button mat-dialog-close>anuluj</button>
 </mat-dialog-actions>
 
