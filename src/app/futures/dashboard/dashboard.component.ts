@@ -144,4 +144,7 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
+  openDeleteOrderDialog() {
+    this.dialog.open(DeleteDialogComponent, {height: '300px', width: '450px'})
+  }
 }

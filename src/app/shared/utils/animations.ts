@@ -12,5 +12,11 @@ export const staggerEffect = trigger('stagger', [
   ])
 ]);
 
+export const dropdownArrow=  trigger('dropdownArrow', [
+  state('true', style({ transform: 'rotate(90deg)' })),
+  state('false', style({ transform: 'rotate(-90deg)' })),
+  transition('true <=> false', animate('150ms linear')),
+]);
+
 
 

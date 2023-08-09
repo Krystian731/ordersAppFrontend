@@ -2,11 +2,13 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Order} from "../../core/models/order";
 import {MatDialog} from "@angular/material/dialog";
 import {EditOrderDialogComponent} from "../edit-order-dialog/edit-order-dialog.component";
+import {dropdownArrow} from "../../shared/utils/animations";
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss']
+  styleUrls: ['./order.component.scss'],
+  animations: [dropdownArrow]
 })
 export class OrderComponent implements OnInit {
   @Input() order?: Order;
