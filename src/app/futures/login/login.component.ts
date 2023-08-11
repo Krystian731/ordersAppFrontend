@@ -16,11 +16,11 @@ export class LoginComponent {
     username: new FormControl('', {
       validators: [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
       asyncValidators: [],
-      updateOn: 'blur'}),
+      updateOn: 'change'}),
     password: new FormControl('', {
       validators: [ Validators.required, Validators.maxLength(20)],
       asyncValidators: [],
-      updateOn: 'blur'})
+      updateOn: 'change'})
   });
 
   submitLogin() {
