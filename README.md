@@ -39,7 +39,7 @@ The project is created with:
 - [x] Order type management
   - [x] Add order type
   - [x] Delete order type
-- [x] Norifications 
+- [x] Notifications 
 ## Usage 
 <img  src="./images/login_page.png"/> 
 <img  src="./images/dashboard_day.png"/>
