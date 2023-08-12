@@ -5,6 +5,8 @@ import {Creditentials} from "../../core/models/credentials.model";
 import {UserHandlerService} from "../../core/services/user-handler.service";
 import {HttpResponse} from "@angular/common/http";
 import {NotificationService} from "../../core/services/notification.service";
+import {AuthService} from "../../core/services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -12,17 +14,17 @@ import {NotificationService} from "../../core/services/notification.service";
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
-  constructor(private users: UserHandlerService, private notification: NotificationService) {}
+  constructor(private users: UserHandlerService, private notification: NotificationService,  private auth: AuthService, private router: Router,) {}
 
-  @ViewChild(LoginComponent) loginComponent: LoginComponent | undefined;
-  @ViewChild(RegisterComponent) registerComponent: RegisterComponent | undefined;
+  @ViewChild(LoginComponent) loginComponent?: LoginComponent ;
+  @ViewChild(RegisterComponent) registerComponent?: RegisterComponent ;
 
   loginTry(creditentials: Creditentials) {
     this.users.loginRequest(creditentials).subscribe({
       next: (response: HttpResponse<any>) => {
         const id: number = response.body;
         const token: string | null = response.headers.get('Authorization');
-        token === null ? console.error('no auth token!') : this.users.login(id, token);
+        token === null ? console.error('no auth token!') : this.loginUser(id, token);
       },
       error: (error) => {
         this.setLoginError(error.error.status, 'złe dane użytkownika!');
@@ -49,5 +51,11 @@ export class LoginPageComponent {
         this.notification.openSnackbar('nie zarejestrowano!', false)
         }
     })
+  }
+  loginUser(id: number, authToken: string){
+    this.auth.setUserId(id);
+    this.auth.setAuthorizationToken(authToken);
+    this.router.navigateByUrl('/orders').then(r => {} );
+    this.notification.openSnackbar('zalogowano!', true);
   }
 }
