@@ -10,7 +10,7 @@ import {EditOrderDialogComponent} from "../edit-order-dialog/edit-order-dialog.c
 import {MatDialog} from "@angular/material/dialog";
 import {AddOrderDialogComponent} from "../add-order-dialog/add-order-dialog.component";
 import {OrderTypesService} from "../../core/services/order-types.service";
-import {appearFromLeft, staggerEffect} from "../../shared/utils/animations";
+import {appearFromLeft, staggerEffect, slideFromLeftStagger} from "../../shared/utils/animations";
 import {NotificationService} from "../../core/services/notification.service";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
@@ -18,7 +18,7 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
   selector: 'app-orders',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  animations: [appearFromLeft, staggerEffect]
+  animations: [slideFromLeftStagger]
 })
 export class DashboardComponent implements OnInit {
 

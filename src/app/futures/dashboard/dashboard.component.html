@@ -1,16 +1,15 @@
-<main class="w-screen h-screen bg-blue-300">
+<main class="w-screen h-screen ">
   <button mat-button color="warn" (click)="logout()">wyloguj<mat-icon class="icon-logout">logout</mat-icon></button>
 
-  <span class="flex flex-col items-center justify-center">
+  <span class="w-full flex flex-col ">
     <span>
       <app-order-state-console></app-order-state-console>
       <button mat-button class="add-order-button" (click)="openAddOrderDialog()">dodaj zamówienie</button>
     </span>
 
-    <ng-container *ngFor="let order of orders$ | async; let i = index;">
-            <app-order [order]="order" [isToDisplayDetails]="i === toDisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" (editEvent)="openEditDialog($event.order)" (deleteEvent)="openDeleteOrderDialog($event)" class="w-2/3 xl:w-1/2 my-8 animation-delay" @appearFromLeft></app-order>
-    </ng-container>
-
+    <div  *ngIf="orders$ | async as ordersList" [@slideFromLeftStagger]="ordersList">
+            <app-order *ngFor="let order of ordersList; let i = index;" [order]="order" [isToDisplayDetails]="i === toDisplayDetails" [index]="i" (dropdownEvent)="assignIndex($event)" (editEvent)="openEditDialog($event.order)" (deleteEvent)="openDeleteOrderDialog($event)" class="flex flex-col justify-center items-center" ></app-order>
+    </div>
 
   </span>
 </main>

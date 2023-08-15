@@ -17,6 +17,12 @@ export const dropdownArrow=  trigger('dropdownArrow', [
   state('false', style({ transform: 'rotate(90deg)' })),
   transition('true <=> false', animate('150ms linear')),
 ]);
+export const slideFromLeftStagger = trigger('slideFromLeftStagger', [
+  transition('* <=> *', query('article', [
+    style({ opacity: 0, transform: 'translateX(-50%)' }),
+    stagger(200, animate('0.3s linear', style({ opacity: 1, transform: 'translateX(0)' })))
+  ]))
+])
 
 
 
