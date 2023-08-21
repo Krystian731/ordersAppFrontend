@@ -3,7 +3,7 @@ import {UserHandlerService} from "../../core/services/user-handler.service";
 import {Router} from "@angular/router";
 import {OrdersService} from "../../core/services/orders.service";
 import {Order, OrderState} from "../../core/models/order";
-import {Observable} from "rxjs";
+import {catchError, concatMap, filter, mergeMap, Observable, of, switchMap, tap} from "rxjs";
 import {DateService} from "../../shared/services/date.service";
 import {AuthService} from "../../core/services/auth.service";
 import {EditOrderDialogComponent} from "../edit-order-dialog/edit-order-dialog.component";
@@ -49,6 +49,9 @@ export class DashboardComponent implements OnInit {
         this.currentOrderState = newState;
       }
     })
+
+    this.subscribeAddOrderTypeSubject();
+    this.subscribeDeleteOrderTypeSubject();
   }
 
   logout() {
@@ -69,20 +72,24 @@ export class DashboardComponent implements OnInit {
           data: {order, types}
         }
       );
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result === false) return;
-        this.orders.updateOrder(result).subscribe(() => {
+
+    dialogRef.afterClosed().pipe(
+      filter((res) => !!res),
+      mergeMap((result) =>
+        this.orders.updateOrder(result).pipe(
+          tap(() => {
             this.refreshOrders();
             this.notificationService.openSnackbar('pomyślnie zmieniono zamówienie!', true);
-
-          },
-          (error) => {
+          }
+          ),
+          catchError((err) => {
             this.notificationService.openSnackbar('nie udało się zmienić zamówienia!', false);
-
-            console.error(error.error)
-          });
-      });
-    })
+            return of(err)
+          })
+        )
+      )
+    ).subscribe();
+  })
   }
 
   refreshOrders() {
@@ -95,45 +102,30 @@ export class DashboardComponent implements OnInit {
       this.orderTypesService.setOrderTypes(newTypes)
     });
 
-    this.orderTypesService.getNewOrderTypeSubject().subscribe((name) => {
-      this.orderTypesService.addNewOrderTypeName(name, this.auth.getUserId()).subscribe(() => {
-          this.notificationService.openSnackbar('dodano nowy typ!', true);
-          this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {
-            this.orderTypesService.setOrderTypes(newTypes);
-          })
-        },
-        (error) => {
-          this.notificationService.openSnackbar('nie udało się dodać typu!', false);
-          console.error(error.error);
-        })
-    });
-    this.orderTypesService.getDeleteOrderSubject().subscribe((orderTypeId) => {
-      this.orderTypesService.deleteOrderType(this.auth.getUserId(), orderTypeId).subscribe(() => {
-          this.notificationService.openSnackbar('usunięto typ!', true);
-          this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()).subscribe((newTypes) => {
-            this.orderTypesService.setOrderTypes(newTypes);
-          });
-        },
-        (error) => {
-          this.notificationService.openSnackbar('nie udało się usunąć typu!', false);
-          console.error(error.error);
-        })
-    });
-    addOrderDialog.afterClosed().subscribe((result) => {
-      if (result !== false) {
-        let newOrder: Order = {...result, orderId: 0, userId: this.auth.getUserId()};
-        this.orders.addOrder(newOrder).subscribe(() => {
-            this.refreshOrders();
-            this.notificationService.openSnackbar('dodano nowe zamówienie!', true);
 
-          },
-          (error) => {
-            this.notificationService.openSnackbar('nie udało się dodać zamówienia!', false);
-            console.error(error.error);
-          });
-      }
-    });
+
+ //TODO przesniesc to na onInit
+
+
+
+    addOrderDialog.afterClosed().pipe(
+      filter((res) => !!res ),
+      concatMap((res) =>
+        this.orders.addOrder({...res, orderId: 0, userId: this.auth.getUserId()}).pipe(
+          tap(() => {
+            this.notificationService.openSnackbar('dodano nowe zamówienie!', true)
+            this.refreshOrders();
+          }),
+          catchError((err) => {
+                this.notificationService.openSnackbar('nie udało się dodać zamówienia!', false)
+                return of(err)
+              }
+            )
+        )
+      ),
+    ).subscribe();
   }
+
 
   assignOrders(state: OrderState) {
     switch (state) {
@@ -154,15 +146,51 @@ export class DashboardComponent implements OnInit {
 
   openDeleteOrderDialog(orderId: number) {
     let dialogref = this.dialog.open(DeleteDialogComponent, {height: '300px', width: '450px'});
-    dialogref.afterClosed().subscribe((response) => {
-      if(!response) return;
-      this.orders.deleteOrder(orderId).subscribe( () => {
-        this.notificationService.openSnackbar('usunięto zamówienie!', true);
-        this.refreshOrders();
-      }, (error) => {
-        this.notificationService.openSnackbar('nie udało się usunąć zamówienia!', false);
-        console.error(error.error);
-      })
-    })
+
+    dialogref.afterClosed().pipe(
+      filter((res) => !!res),
+      concatMap(() =>
+        this.orders.deleteOrder(orderId).pipe(
+          tap( () => {
+            this.notificationService.openSnackbar('usunięto zamówienie!', true);
+            this.refreshOrders();
+          }),
+          catchError((err) => {
+            this.notificationService.openSnackbar('nie udało się usunąć zamówienia!', false);
+            return of(err);
+          })
+        )
+      )
+    ).subscribe()
+
+  }
+
+  subscribeAddOrderTypeSubject() {
+    this.orderTypesService.getNewOrderTypeSubject().pipe(
+      concatMap((name: string) => this.orderTypesService.addNewOrderTypeName(name, this.auth.getUserId()).pipe( // pierwszy operator
+        tap(() => this.notificationService.openSnackbar('dodano nowy typ!', true)),
+        catchError(err => {
+          this.notificationService.openSnackbar('nie udało się dodać typu!', false);
+          return of(err)
+        })
+      )),
+      switchMap(() => this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()))
+    ).subscribe(types => this.orderTypesService.setOrderTypes(types))
+  }
+
+  subscribeDeleteOrderTypeSubject() {
+    this.orderTypesService.getDeleteOrderSubject().pipe(
+      mergeMap((orderTypeId) =>
+        this.orderTypesService.deleteOrderType(this.auth.getUserId(), orderTypeId).pipe(
+          tap(() => this.notificationService.openSnackbar('usunięto typ!', true)),
+          catchError((err) => {
+              this.notificationService.openSnackbar('nie udało się usunąć typu!', false);
+              return of(err)
+            }
+          )
+        )
+      ),
+      mergeMap(() => this.orderTypesService.getOrderTypesRequest(this.auth.getUserId()))
+    ).subscribe((types) => this.orderTypesService.setOrderTypes(types))
   }
 }
